@@ -1,25 +1,78 @@
-<h2>BMI 計算</h2>
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>BMI 計算器</title>
+</head>
+<body>
+<div id="main">
+    <h2>BMI 計算</h2>
 
-身高（cm）：<input type="number" id="height"><br>
-體重（kg）：<input type="number" id="weight"><br><br>
-輸入要玩幾格位數：<input type="number" id="digit"><br><br>
-<button onclick="calcBMI()">計算</button>
-<p id="bmiResult"></p>
-<button onclick="digits()">位數</button>
-<p id="digitcount"></p>
+    身高（cm）：<input type="number" id="height"><br>
+    體重（kg）：<input type="number" id="weight"><br>
+    小數位數：<input type="number" id="digit" value="2"><br><br>
+
+    <p>選擇要顯示的資訊：</p>
+    <label><input type="checkbox" id="showBMI" checked> 顯示 BMI</label><br>
+    <label><input type="checkbox" id="showCategory" checked> 顯示分類</label><br><br>
+
+    <button onclick="calcBMI()">計算</button>
+    <button onclick="clearAll()">清空畫面</button>
+
+    <p id="bmiResult"></p>
+</div>
+
 <script>
+// 計算 BMI
 function calcBMI() {
     let h = document.getElementById("height").value / 100;
     let w = document.getElementById("weight").value;
-    let bmi = w / (h * h);
-
-    document.getElementById("bmiResult").innerText =
-        "你的 BMI 是：" + bmi.toFixed(3);//小數點後幾位
-}
-function digits() {
     let digit = Number(document.getElementById("digit").value);
-    document.getElementById("digitcount").innerText =
-        "你輸入數字" + digit.toFixed(3);//小數點後幾位
+
+    if (!h || !w) {
+        alert("請輸入身高和體重！");
+        return;
+    }
+
+    let bmi = w / (h * h);
+    let resultText = "";
+
+    if (document.getElementById("showBMI").checked) {
+        resultText += "你的 BMI 是：" + bmi.toFixed(digit) + "\n";
+    }
+
+    if (document.getElementById("showCategory").checked) {
+        let category = "";
+        if (bmi < 18.5) category = "體重過輕";
+        else if (bmi < 24) category = "正常範圍";
+        else if (bmi < 27) category = "過重";
+        else category = "肥胖";
+        resultText += "體重分類：" + category;
+    }
+
+    document.getElementById("bmiResult").innerText = resultText;
+}
+
+// 清空畫面並顯示新文字
+function clearAll() {
+    const mainDiv = document.getElementById("main");
+    mainDiv.innerHTML = ""; // 清掉所有內容
+
+    // 新文字提示
+    const newTitle = document.createElement("h2");
+    newTitle.innerText = "畫面已清空！歡迎重新開始";
+    mainDiv.appendChild(newTitle);
+
+    const infoText = document.createElement("p");
+    infoText.innerText = "請重新輸入身高、體重，或按下下方按鈕重新開始。";
+    mainDiv.appendChild(infoText);
+
+    // 重新開始按鈕
+    const restartBtn = document.createElement("button");
+    restartBtn.innerText = "重新開始";
+    restartBtn.onclick = () => location.reload(); // 重新載入頁面
+    mainDiv.appendChild(restartBtn);
 }
 </script>
-
+</body>
+</html>
