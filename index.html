@@ -1,12 +1,20 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <title>測試第一行文字</title>
-</head>
-<body>
-    <h1>測試第一行文字</h1>
-    <p>這是我人生第一個網站 🎉</p>
-    <p>Made with GitHub Pages.</p>
-</body>
-</html>
+<h2>BMI 計算</h2>
+
+身高（cm）：<input type="number" id="height"><br>
+體重（kg）：<input type="number" id="weight"><br><br>
+
+<button onclick="calcBMI()">計算</button>
+
+<p id="bmiResult"></p>
+
+<script>
+function calcBMI() {
+    let h = document.getElementById("height").value / 100;
+    let w = document.getElementById("weight").value;
+    let bmi = w / (h * h);
+
+    document.getElementById("bmiResult").innerText =
+        "你的 BMI 是：" + bmi.toFixed(2);
+}
+</script>
+
