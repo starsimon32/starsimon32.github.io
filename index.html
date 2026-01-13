@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 測試4改版48</title>
+<title>1A2B 測試5改版48</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -83,17 +83,14 @@ function initialcandidates(){
     state.candidates=generatepossibilities();
 }
 function deletecandidates(){
-    state.candidates = state.candidates.filter(s => checkApulsB(s, state.history[state.guesscount-1]) === (state.history[state.guesscount-1].A + state.history[state.guesscount-1].B)
+    state.candidates = state.candidates.filter(s => checkApulsB(s, state.history[state.history.length-1]) === (state.history[state.history.length-1].A + state.history[state.history.length-1].B)
 );
 
 }
 function showcandidates(){
     let text="可能的候選人<br>";
-
     text+=state.candidates.join(",");
     text+="然後重新組合";
-
-
     document.getElementById("candidates").innerText=`${text} `;
 }
 function getPermutations(str) {
@@ -177,6 +174,7 @@ function describe(){
         幫助按鈕：提供一組與歷史紀錄不矛盾的答案<br>
         顯示剩餘解按鈕：計算剩餘可能組合<br>
         我來提示系統猜按鈕：(此步驟會消耗一次猜的機會，請謹慎使用)輸入一個符合長度和上下界的數字，系統幫你排成和前面幾次猜測都不矛盾的組合，注意到假設無論怎麼湊都會矛盾，系統會自動猜一開始輸入的數<br>
+        顯示候選人按鈕：直接告訴你還有哪些組合，不過建議配合"我來提示系統猜按鈕"<br>
         <button onclick="renderStartPage()">回開始</button>
     `;
 }
