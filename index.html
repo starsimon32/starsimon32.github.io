@@ -1,52 +1,81 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <title>排列產生器測試頁</title>
-    <style>
-        body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; }
-        input { padding: 5px; font-size: 16px; }
-        button { padding: 5px 10px; font-size: 16px; margin-left: 5px; }
-        #output { margin-top: 20px; white-space: pre-wrap; background: #fff; padding: 10px; border-radius: 5px; box-shadow: 0 0 5px rgba(0,0,0,0.2); }
-    </style>
+  <meta charset="UTF-8">
+  <title>組合產生器（可重複 / 不可重複）</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    input, button {
+      margin: 5px;
+    }
+    #result {
+      margin-top: 20px;
+      white-space: pre-wrap;
+      font-family: monospace;
+    }
+  </style>
 </head>
 <body>
-    <h1>排列產生器</h1>
-    <p>輸入字元，例如：123</p>
-    <input type="text" id="inputStr" placeholder="輸入字元">
-    <button onclick="generatePermutations()">產生排列</button>
 
-    <div id="output"></div>
+<h2>組合產生器（順序不重要）</h2>
 
-    <script>
-        // 直觀遞迴排列函式
-        function getPermutations(str) {
-            if (str.length === 1) return [str];
+<label>下界：</label>
+<input type="number" id="min" value="0">
 
-            const result = [];
+<label>上界：</label>
+<input type="number" id="max" value="4">
+<br>
 
-            for (let i = 0; i < str.length; i++) {
-                const char = str[i];                 
-                const remaining = str.slice(0,i) + str.slice(i+1); 
-                const perms = getPermutations(remaining);          
-                for (const perm of perms) {
-                    result.push(char + perm);
-                }
-            }
+<label>位數：</label>
+<input type="number" id="length" value="2" min="1">
+<br>
 
-            return result;
-        }
+<label>
+  <input type="checkbox" id="repeat">
+  可重複
+</label>
+<br>
 
-        function generatePermutations() {
-            const input = document.getElementById("inputStr").value.trim();
-            if (!input) {
-                alert("請輸入字元");
-                return;
-            }
+<button onclick="generate()">產生組合</button>
 
-            const permutations = getPermutations(input);
-            document.getElementById("output").textContent = permutations.join("\n");
-        }
-    </script>
+<div id="result"></div>
+
+<script>
+function generate() {
+  const min = parseInt(document.getElementById("min").value);
+  const max = parseInt(document.getElementById("max").value);
+  const length = parseInt(document.getElementById("length").value);
+  const repeat = document.getElementById("repeat").checked;
+
+  const numbers = [];
+  for (let i = min; i <= max; i++) {
+    numbers.push(i.toString());
+  }
+
+  const results = [];
+
+  function backtrack(startIndex, current) {
+    if (current.length === length) {
+      results.push(current.join(""));
+      return;
+    }
+
+    for (let i = startIndex; i < numbers.length; i++) {
+      current.push(numbers[i]);
+      backtrack(repeat ? i : i + 1, current);
+      current.pop();
+    }
+  }
+
+  backtrack(0, []);
+
+  document.getElementById("result").textContent =
+    `共 ${results.length} 種組合：\n` + results.join("、");
+}
+</script>
+
 </body>
 </html>
