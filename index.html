@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 測試~</title>
+<title>1A2B 測試2~</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -426,16 +426,31 @@ function showHistory(){
 
 /* ========= 驗證 ========= */
 function validGuess(input){
-    if(input.length!==state.digit){ alert("輸入長度錯誤"); return false; }
+    if(input.length !== state.digit){
+        alert("輸入長度錯誤");
+        return false;
+    }
+
     for(let c of input){
-        let idx=CharToInt(c);
-        if(idx===-1||idx<CharToInt(state.low)||idx>CharToInt(state.high)){
-            alert("含非法或超出範圍字元"); return false;
+        let idx = CharToInt(c);
+        if(
+            idx === -1 ||
+            idx < CharToInt(state.low) ||
+            idx > CharToInt(state.high)
+        ){
+            alert("含非法或超出範圍字元");
+            return false;
         }
     }
-    if(!state.useRepeat && new Set(input).size!==input.length){ alert("不允許重複"); return false; }
+
+    if(!state.useRepeat && new Set(input).size !== input.length){
+        alert("不允許重複");
+        return false;
+    }
+
     return true;
 }
+
 
 /* ========= 判斷 ========= */
 function checkA(a,g){ let A=0; for(let i=0;i<a.length;i++) if(a[i]===g[i]) A++; return A; }
