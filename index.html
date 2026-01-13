@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版55測試8</title>
+<title>1A2B 改版55測試9</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -173,14 +173,15 @@ function deletesame(st){
     return outputarray;
 }
 function randomize(str){
-    let s=str;
-    let output="";
-    for(let i=0;i<str.length;i++){
-        let num=Math.floor(Math.random() * s.length
+    let s=str.split("");
+    let output=[];
+    let originallength=s.length;
+    for(let i=0;i<originallength;i++){
+        let num=Math.floor(Math.random() * s.length);
         output.push(s[num]);
         s.splice(num, 1);
     }
-    return output;
+    return output.join("");
 }
 /* ========= 開始畫面 ========= */
 function renderStartPage(){
