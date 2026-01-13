@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 測試5改版48</title>
+<title>1A2B 測試6改版48</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -287,9 +287,7 @@ function renderGamePage(){
         <p id="left"></p>
         <p id="candidates"></p>
     `;
-    showHistory();
-    deletecandidates();
-    
+    showHistory();   
 }
 
 /* ========= 猜 ========= */
@@ -306,6 +304,7 @@ function guess(){
     document.getElementById("result").innerText=`${input} → ${A}A${B}B`;
     showHistory();
     if(A===state.digit) victoryPage();
+    deletecandidates();
 }
 
 /* ========= 系統提示猜 ========= */
@@ -338,6 +337,7 @@ function guessbyrearrange(){
     document.getElementById("result").innerText=`${input} → ${A}A${B}B`;
     showHistory();
     if(A===state.digit) victoryPage();
+    deletecandidates();
 }
 
 function nextRound(){
