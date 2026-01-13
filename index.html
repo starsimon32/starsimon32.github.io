@@ -1,107 +1,52 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-<meta charset="UTF-8">
-<title>BMI 計算器-test</title>
+    <meta charset="UTF-8">
+    <title>排列產生器測試頁</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; }
+        input { padding: 5px; font-size: 16px; }
+        button { padding: 5px 10px; font-size: 16px; margin-left: 5px; }
+        #output { margin-top: 20px; white-space: pre-wrap; background: #fff; padding: 10px; border-radius: 5px; box-shadow: 0 0 5px rgba(0,0,0,0.2); }
+    </style>
 </head>
 <body>
-<div id="main">
-    <h2>BMI 計算</h2>
+    <h1>排列產生器</h1>
+    <p>輸入字元，例如：123</p>
+    <input type="text" id="inputStr" placeholder="輸入字元">
+    <button onclick="generatePermutations()">產生排列</button>
 
-    身高（cm）：<input type="number" id="height"><br>
-    體重（kg）：<input type="number" id="weight"><br>
-    小數位數：<input type="number" id="digit" value="2"><br><br>
-    測試牌組：<input id="guessInput"><br><br>
-    <p id="Result"></p>
+    <div id="output"></div>
 
-    <p>選擇要顯示的資訊：</p>
-    <label><input type="checkbox" id="showBMI" checked> 顯示 BMI</label><br>
-    <label><input type="checkbox" id="showCategory" checked> 顯示分類</label><br><br>
+    <script>
+        // 直觀遞迴排列函式
+        function getPermutations(str) {
+            if (str.length === 1) return [str];
 
-    <button onclick="calcBMI()">計算</button>
-    <button onclick="clearAll()">清空畫面</button>
-    <button onclick="givePermutations();">測試</button>
-    <p id="bmiResult"></p>;
-    
-</div>
+            const result = [];
 
-<script>
-// 計算 BMI
+            for (let i = 0; i < str.length; i++) {
+                const char = str[i];                 
+                const remaining = str.slice(0,i) + str.slice(i+1); 
+                const perms = getPermutations(remaining);          
+                for (const perm of perms) {
+                    result.push(char + perm);
+                }
+            }
 
-function calcBMI() {
-    let h = document.getElementById("height").value / 100;
-    let w = document.getElementById("weight").value;
-    let digit = Number(document.getElementById("digit").value);
-
-    if (!h || !w) {
-        alert("請輸入身高和體重！");
-        return;
-    }
-
-    let bmi = w / (h * h);
-    let resultText = "";
-
-    if (document.getElementById("showBMI").checked) {
-        resultText += "你的 BMI 是：" + bmi.toFixed(digit) + "\n";
-    }
-
-    if (document.getElementById("showCategory").checked) {
-        let category = "";
-        if (bmi < 18.5) category = "體重過輕";
-        else if (bmi < 24) category = "正常範圍";
-        else if (bmi < 27) category = "過重";
-        else category = "肥胖";
-        resultText += "體重分類：" + category;
-    }
-
-    document.getElementById("bmiResult").innerText = resultText;
-}
-
-// 清空畫面並顯示新文字
-function clearAll() {
-    const mainDiv = document.getElementById("main");
-    mainDiv.innerHTML = ""; // 清掉所有內容
-
-    // 新文字提示
-    const newTitle = document.createElement("h2");
-    newTitle.innerText = "畫面已清空！歡迎重新開始";
-    mainDiv.appendChild(newTitle);
-
-    const infoText = document.createElement("p");
-    infoText.innerText = "請重新輸入身高、體重，或按下下方按鈕重新開始。";
-    mainDiv.appendChild(infoText);
-
-    // 重新開始按鈕
-    const restartBtn = document.createElement("button");
-    restartBtn.innerText = "重新開始";
-    restartBtn.onclick = () => location.reload(); // 重新載入頁面
-    mainDiv.appendChild(restartBtn);
-}
-function getPermutations(str) {
-    if (str.length === 1) return [str];
-
-    const result = [];
-
-    for (let i = 0; i < str.length; i++) {
-        const char = str[i];                 // 拿出第 i 個字元
-        const remaining = str.slice(0,i) + str.slice(i+1); // 剩下的字元
-        const perms = getPermutations(remaining);          // 對剩下的字元排列
-        for (const perm of perms) {
-            result.push(char + perm);
+            return result;
         }
-    }
 
-    return result;
-}
-function givePermutations(){
-    let input=document.getElementById("guessInput").value;
-    let words=getPermutations(input)
-    document.getElementById("result").innerText=`${words}`;
-}
+        function generatePermutations() {
+            const input = document.getElementById("inputStr").value.trim();
+            if (!input) {
+                alert("請輸入字元");
+                return;
+            }
 
-// 測試
-console.log(getPermutations("123"));
-
-</script>
+            const permutations = getPermutations(input);
+            document.getElementById("output").textContent = permutations.join("\n");
+        }
+    </script>
 </body>
 </html>
