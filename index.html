@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版55測試9</title>
+<title>1A2B 改版58測試2</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -86,6 +86,9 @@ const allowedChars = "0123456789abcdefghijklmnopqrstuvwxyz";
 function initialcandidates(){
     state.candidates=generatepossibilities();
 }
+function initialcandidates2(){
+    state.candidates=generatepossibilities2();
+}
 function deletecandidates(){
     state.candidates = state.candidates.filter(s => checkApulsB(s, state.history[state.history.length-1].guess) === (state.history[state.history.length-1].A + state.history[state.history.length-1].B));
 }
@@ -119,7 +122,7 @@ function generatepossibilities() {
     numbers.push(i.toString());
   }
 
-  const results = [];
+  let results = [];
 
   function backtrack(startIndex, current) {
     if (current.length === length) {
@@ -138,11 +141,53 @@ function generatepossibilities() {
 return deletesame(results);
 }
 
+function generatepossibilities2() {
+  let min = state.low;
+  let max = state.high;
+  let length = state.digit;
+  let repeat = state.useRepeat;
+
+  const numbers = [];
+  for (let i = min; i <= max; i++) {
+    numbers.push(i.toString());
+  }
+
+  let results = [];
+
+  function backtrack(startIndex, current) {
+    if (current.length === length&& checkAplusB(current.join(""),state.history[0].guess)===(state.history[0].A+state.history[0].b)) {
+      results.push(current.join(""));
+      return;
+    }
+
+    for (let i = startIndex; i < numbers.length; i++) {
+      current.push(numbers[i]);
+      backtrack(repeat ? i : i + 1, current);
+      current.pop();
+    }
+  }
+
+  backtrack(0, []);
+return deletesame(results);
+}
 /* ========= 時間 ========= */
 function givenow(){ return Date.now(); }
 function spendtime(){ return (Date.now()-state.starttime)/1000; }
 
 /* ========= 工具 ========= */
+function Istoobig(){
+    let a=CharToInt(state.high)-CharToInt(state.low);
+    let b=state.digit;
+    if(a*b>=1000000){
+        return 2;
+    }
+    else if (a*b>=100000){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
 function CharToInt(c){ return allowedChars.indexOf(c); }
 function checkrepeat(s){ for(let i=0;i<s.length;i++) for(let j=i+1;j<s.length;j++) if(s[i]===s[j]) return false; return true; }
 function charadd1(c){ let a=CharToInt(c); if(a===CharToInt(state.high)) a=CharToInt(state.low); else a++; return allowedChars[a]; }
@@ -194,9 +239,11 @@ function renderStartPage(){
         最低位 <input id="lowInput" value="${state.low}" maxlength="1"><br><br>
         最高位 <input id="highInput" value="${state.high}" maxlength="1"><br><br>
         允許重複 <input type="checkbox" id="useRepeat" ${state.useRepeat?"checked":""}><br><br>
-        <button onclick="startGame()">電腦出題</button>
-        <button onclick="startGame2()">我來出題</button>
-        <button onclick="describe()">規則說明</button>
+        <div class="btn-group danger-btn">
+            <button onclick="startGame()">電腦出題</button>
+            <button onclick="startGame2()">我來出題</button>
+            <button onclick="describe()">規則說明</button>
+        </div>
     `;
 }
 
@@ -205,13 +252,15 @@ function describe(){
     const app=document.getElementById("app");
     app.innerHTML=`
         <h2 class="start-title">規則說明</h2>
-        <span style="color: #00ff00;">遊戲規則：</span>答案由玩家設定，包含重複或不重複、位數及幾進位(本遊戲支援36進位 a=10 、b=11.. z=35)<br>
-        提示按鈕：輸入自己的答案後，告訴使用者是否與歷史紀錄矛盾<br>
-        幫助按鈕：提供一組與歷史紀錄不矛盾的答案<br>
-        顯示剩餘解按鈕：計算剩餘可能組合<br>
-        我來提示系統猜按鈕：(此步驟會消耗一次猜的機會，請謹慎使用)輸入一個符合長度和上下界的數字，系統幫你排成和前面幾次猜測都不矛盾的組合，注意到假設無論怎麼湊都會矛盾，系統會自動猜一開始輸入的數<br>
-        顯示候選人按鈕：直接告訴你還有哪些組合，不過建議配合"我來提示系統猜按鈕"<br>
-        <button onclick="renderStartPage()">回開始</button>
+        <span style="font-size: 20px; color: #ffcc00; font-weight: bold;">遊戲規則：</span><br>答案由玩家設定，包含重複或不重複、位數及幾進位(本遊戲支援36進位 a=10 、b=11.. z=35)<br>
+        <span style="font-size: 20px; color: #ffcc00; font-weight: bold;">提示按鈕：</span><br>輸入自己的答案後，告訴使用者是否與歷史紀錄矛盾<br>
+        <span style="font-size: 20px; color: #ffcc00; font-weight: bold;">幫助按鈕：</span><br>提供一組與歷史紀錄不矛盾的答案<br>
+        <span style="font-size: 20px; color: #ffcc00; font-weight: bold;">顯示剩餘解按鈕：</span><br>計算剩餘可能組合<br>
+        <span style="font-size: 20px; color: #ffcc00; font-weight: bold;">我來提示系統猜按鈕：</span><br>(此步驟會消耗一次猜的機會，請謹慎使用)輸入一個符合長度和上下界的數字，系統幫你排成和前面幾次猜測都不矛盾的組合，注意到假設無論怎麼湊都會矛盾，系統會自動猜一開始輸入的數<br>
+        <span style="font-size: 20px; color: #ffcc00; font-weight: bold;">顯示候選人按鈕：</span><br>直接告訴你還有哪些組合，不過建議配合"我來提示系統猜按鈕"<br>
+        <div class="btn-group danger-btn">
+            <button onclick="renderStartPage()">回開始</button>
+        </div>
     `;
 }
 
@@ -250,7 +299,10 @@ function TostartGame(){
     state.guesscount = 0;
     state.haveGuessed = false;
     state.starttime=Date.now();
-    initialcandidates();
+    if(Istoobig()===0){
+        initialcandidates();
+    }
+    
 
     renderGamePage();
 }
@@ -258,6 +310,7 @@ function TostartGame(){
 /* ========= 開始遊戲 ========= */
 function startGame(){
     const app=document.getElementById("app");
+   
 
     state.playerName=document.getElementById("nameInput").value;
     state.digit=Number(document.getElementById("digitInput").value);
@@ -273,12 +326,17 @@ function startGame(){
     
     state.history=[]; state.guesscount=0; state.haveGuessed=false;
     state.starttime=Date.now();
-    initialcandidates();
+    if(Istoobig()===0){
+        initialcandidates();
+    }
     renderGamePage();
 }
 
 /* ========= 遊戲畫面 ========= */
 function renderGamePage(){
+    if(Istoonig===1 && state.guesscount===1){
+        initialcandidates2();
+    }
     const app=document.getElementById("app");
     let titleWords = "";
     if(state.answerbyuser === false){
@@ -340,6 +398,7 @@ function guess(){
     document.getElementById("result").innerText=`${input} → ${A}A${B}B`;
     showHistory();
     if(A===state.digit) victoryPage();
+    if(Istoobig()===0 || (Istoobig()===1&&state.guesscount>=1))
     deletecandidates();
 }
 
@@ -402,17 +461,13 @@ function giveHint(){
 
 /* ========= 幫助 ========= */
 function giveHelp(){
-    let s;
-    if(state.useRepeat){
-        s=RandomNumberRepeat();
-        while(correctguess(s)!==-1) s=stringadd1(s);
-    } else {
-        s=RandomNumberNoRepeat();
-        while(true){
-            if(!checkrepeat(s)){ s=stringadd1(s); continue; }
-            if(correctguess(s)===-1) break;
-            s=stringadd1(s);
-        }
+    if(Istoobig()===2){
+        alert("數字太大不可以用");
+        return;
+    }
+    if(Istoobig()===1&&state.guess===0){
+        alert("數字太大，第一次不可用");
+        return;
     }
     let s2="";
     let founded=false;
@@ -430,11 +485,19 @@ function giveHelp(){
             break;
         }
     }
-    document.getElementById("help").innerText=`${s}、${s2} 是一組解`;
+    document.getElementById("help").innerText=`${s2} 是一組解`;
 }
 
 /* ========= 剩餘解 ========= */
 function showLeft(){
+    if(Istoobig()===2){
+        alert("數字太大不可以用");
+        return;
+    }
+    if(Istoobig()===1&&state.guess===0){
+        alert("數字太大，第一次不可用");
+        return;
+    }
     let count2=0;
     let possibilities=state.candidates;
     for(let i=0;i<possibilities.length;i++){
