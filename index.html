@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 測試3改版48</title>
+<title>1A2B 測試4改版48</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -276,7 +276,7 @@ function renderGamePage(){
             <button onclick="giveHint()">提示</button>
             <button onclick="giveHelp()">幫助</button>
             <button onclick="showLeft()">顯示剩餘解數量</button>
-            <button onclick="showcandidatest()">顯示候選人</button>
+            <button onclick="showcandidates()">顯示候選人</button>
         </div>
         <div class="btn-group danger-btn">
             <button onclick="giveUp()">放棄</button>
@@ -289,8 +289,9 @@ function renderGamePage(){
         <p id="left"></p>
         <p id="candidates"></p>
     `;
-    deletecandidates();
     showHistory();
+    deletecandidates();
+    
 }
 
 /* ========= 猜 ========= */
