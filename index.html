@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版55測試7</title>
+<title>1A2B 改版55測試8</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -171,6 +171,16 @@ function deletesame(st){
         }
     }
     return outputarray;
+}
+function randomize(str){
+    let s=str;
+    let output="";
+    for(let i=0;i<str.length;i++){
+        let num=Math.floor(Math.random() * s.length
+        output.push(s[num]);
+        s.splice(num, 1);
+    }
+    return output;
 }
 /* ========= 開始畫面 ========= */
 function renderStartPage(){
@@ -407,7 +417,7 @@ function giveHelp(){
     let founded=false;
     let num = Math.floor(Math.random() * state.candidates.length); 
     for(let i=0;i<state.candidates.length;i++){
-        let array=getPermutations(state.candidates[(num+i)%state.candidates.length]);
+        let array=getPermutations(randomize(state.candidates[(num+i)%state.candidates.length]));
         for(let j=0;j<array.length;j++){
             if(correctguess(array[j])===-1){
                 founded=true;
