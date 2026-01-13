@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版55測試6</title>
+<title>1A2B 改版55測試7</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -403,12 +403,27 @@ function giveHelp(){
             s=stringadd1(s);
         }
     }
-    document.getElementById("help").innerText=`${s} 是一組解`;
+    let s2="";
+    let founded=false;
+    let num = Math.floor(Math.random() * state.candidates.length); 
+    for(let i=0;i<state.candidates.length;i++){
+        let array=getPermutations(state.candidates[(num+i)%state.candidates.length]);
+        for(let j=0;j<array.length;j++){
+            if(correctguess(array[j])===-1){
+                founded=true;
+                s2=array[j];
+                break;
+            }
+        }
+        if(founded===true){
+            break;
+        }
+    }
+    document.getElementById("help").innerText=`${s}、${s2} 是一組解`;
 }
 
 /* ========= 剩餘解 ========= */
 function showLeft(){
-    let count=0,s,stop;
     let count2=0;
     let possibilities=state.candidates;
     for(let i=0;i<possibilities.length;i++){
@@ -419,14 +434,7 @@ function showLeft(){
             }
         }
     }
-    if(state.useRepeat){
-        s=RandomNumberRepeat(); stop=s;
-        do{ if(correctguess(s)===-1) count++; s=stringadd1(s); }while(s!==stop);
-    } else {
-        s=RandomNumberNoRepeat(); stop=s;
-        do{ if(checkrepeat(s)&&correctguess(s)===-1) count++; s=stringadd1(s); }while(s!==stop);
-    }
-    document.getElementById("left").innerText=`剩下 ${count} 或是${count2}組解`;
+    document.getElementById("left").innerText=`剩下${count2}組解`;
 }
 
 /* ========= 結果 ========= */
