@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 測試6改版48</title>
+<title>1A2B 測試7改版48</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -83,9 +83,7 @@ function initialcandidates(){
     state.candidates=generatepossibilities();
 }
 function deletecandidates(){
-    state.candidates = state.candidates.filter(s => checkApulsB(s, state.history[state.history.length-1]) === (state.history[state.history.length-1].A + state.history[state.history.length-1].B)
-);
-
+    state.candidates = state.candidates.filter(s => checkApulsB(s, state.history[state.history.length-1]) === (state.history[state.history.length-1].A + state.history[state.history.length-1].B));
 }
 function showcandidates(){
     let text="可能的候選人<br>";
