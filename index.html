@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版55測試2</title>
+<title>1A2B 改版55測試3</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -135,6 +135,7 @@ function generatepossibilities() {
   }
 
   backtrack(0, []);
+results=deletesame(results);
 return results;
 }
 
@@ -148,7 +149,30 @@ function checkrepeat(s){ for(let i=0;i<s.length;i++) for(let j=i+1;j<s.length;j+
 function charadd1(c){ let a=CharToInt(c); if(a===CharToInt(state.high)) a=CharToInt(state.low); else a++; return allowedChars[a]; }
 function stringadd1(s){ let a=s.split(""); a[a.length-1]=charadd1(a[a.length-1]); for(let i=a.length-1;i>0;i--){ if(a[i]===state.low) a[i-1]=charadd1(a[i-1]); else break; } return a.join(""); }
 function countChar(s,c){ return [...s].filter(x=>x===c).length; }
-
+function deletesame(st){
+    let array=st;
+    let Ifdelete=[];
+    for(let i=0;i<array.length;i++){
+        Ifdelete.push(0);
+    }
+     for(let i=0;i<array.length;i++){
+        if(Ifdelete[i]===1){
+            continue;
+        }
+        for(let j=i+1;j<array.length;j++){
+             if(array[i]===array[j]){
+                 Ifdelete[j]=1;
+             }
+         }
+    }
+    let outputarray=[];
+    for(let i=0;i<array.length;i++){
+        if(Ifdelete[i]===0){
+            outputarray.push(array[i];
+        }
+    }
+    
+}
 /* ========= 開始畫面 ========= */
 function renderStartPage(){
     state.answerbyuser=false;
