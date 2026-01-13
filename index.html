@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>BMI 計算器</title>
+<title>BMI 計算器-test</title>
 </head>
 <body>
 <div id="main">
@@ -11,6 +11,8 @@
     身高（cm）：<input type="number" id="height"><br>
     體重（kg）：<input type="number" id="weight"><br>
     小數位數：<input type="number" id="digit" value="2"><br><br>
+    測試牌組：<input id="guessInput"><br><br>
+    <p id="Result"></p>
 
     <p>選擇要顯示的資訊：</p>
     <label><input type="checkbox" id="showBMI" checked> 顯示 BMI</label><br>
@@ -18,12 +20,14 @@
 
     <button onclick="calcBMI()">計算</button>
     <button onclick="clearAll()">清空畫面</button>
-
-    <p id="bmiResult"></p>
+    <button onclick="givePermutations();">測試</button>
+    <p id="bmiResult"></p>;
+    
 </div>
 
 <script>
 // 計算 BMI
+
 function calcBMI() {
     let h = document.getElementById("height").value / 100;
     let w = document.getElementById("weight").value;
@@ -73,6 +77,31 @@ function clearAll() {
     restartBtn.onclick = () => location.reload(); // 重新載入頁面
     mainDiv.appendChild(restartBtn);
 }
+function getPermutations(str) {
+    if (str.length === 1) return [str];
+
+    const result = [];
+
+    for (let i = 0; i < str.length; i++) {
+        const char = str[i];                 // 拿出第 i 個字元
+        const remaining = str.slice(0,i) + str.slice(i+1); // 剩下的字元
+        const perms = getPermutations(remaining);          // 對剩下的字元排列
+        for (const perm of perms) {
+            result.push(char + perm);
+        }
+    }
+
+    return result;
+}
+function givePermutations(){
+    let input=document.getElementById("guessInput").value;
+    let words=getPermutations(input)
+    document.getElementById("result").innerText=`${words}`;
+}
+
+// 測試
+console.log(getPermutations("123"));
+
 </script>
 </body>
 </html>
