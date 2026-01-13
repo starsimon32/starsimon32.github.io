@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版55測試5</title>
+<title>1A2B 改版55測試6</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -106,7 +106,7 @@ function getPermutations(str) {
             result.push(char + perm);
         }
     }
-    return result;
+    return deletesame(result);
 }
 function generatepossibilities() {
   let min = state.low;
