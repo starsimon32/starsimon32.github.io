@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版59測試1</title>
+<title>1A2B 改版59測試2</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -258,6 +258,7 @@ function randomize(str){
 /* ========= 開始畫面 ========= */
 function renderStartPage(){
     state.historybycomputer = [];
+    state.history= [];
     state.answerbyuser=false;
     const app=document.getElementById("app");
     app.innerHTML=`
@@ -663,7 +664,7 @@ function showHistory(){
         html+=`第 ${i+1} 次：${h.guess} → ${h.A}A${h.B}B<br>`;
     });
     if(state.difficulty!==-1){
-        html+=` 電腦猜的<br>`
+        html+=` <br>電腦猜的<br>`
         state.historybycomputer.forEach((h,i)=>{
             if(state.seeother===1){
             html+=`第 ${i+1} 次：${h.guess} → ${h.A}A${h.B}B<br>`;
