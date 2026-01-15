@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版58測試4</title>
+<title>1A2B 改版59測試1</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -310,7 +310,7 @@ function startGame3(){
     if(CharToInt(state.low)===-1||CharToInt(state.high)===-1){ alert("最低或最高位不合法"); return; }
     if(CharToInt(state.high)<CharToInt(state.low)){ alert("最高位不能小於最低位"); return; }
     if(!state.useRepeat && CharToInt(state.high)-CharToInt(state.low)+1<state.digit){ alert("字元數不足，必定重複"); return; }
-    state.answerbyuser = true;
+    state.answerbyuser = false;
     const app = document.getElementById("app");
     if(!state.answerbyuser){ state.answer=state.useRepeat?RandomNumberRepeat():RandomNumberNoRepeat(); }
      app.innerHTML = `
@@ -493,6 +493,7 @@ function guess(){
     state.haveGuessed=true;
 
     document.getElementById("result").innerText=`${input} → ${A}A${B}B`;
+    computerguess();
     showHistory();
     if(A===state.digit) victoryPage();
     if(Istoobig()===0 || (Istoobig()===1&&state.guesscount>=1))
@@ -527,6 +528,7 @@ function guessbyrearrange(){
     state.haveGuessed=true;
 
     document.getElementById("result").innerText=`${input} → ${A}A${B}B`;
+    computerguess();
     showHistory();
     if(A===state.digit) victoryPage();
     deletecandidates(true);
