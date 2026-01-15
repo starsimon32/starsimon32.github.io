@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版59測試2</title>
+<title>1A2B 改版59測試3</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -629,7 +629,7 @@ function showLeft(){
 function victoryPage(){
     const app=document.getElementById("app");
     let a=spendtime();
-    state.seeother=1;
+    state.seeother=true;
     app.innerHTML=`
         <h2 class="win-title">🎉 恭喜猜中！</h2>
         <p id="historys"></p>
@@ -642,7 +642,7 @@ function victoryPage(){
 function giveUp(){
     const app=document.getElementById("app");
     let a=spendtime();
-    state.seeother=1;
+    state.seeother=true;
     app.innerHTML=`
         <h2 class="lose-title">😢 放棄了</h2>
         <p id="historys"></p>
@@ -666,7 +666,7 @@ function showHistory(){
     if(state.difficulty!==-1){
         html+=` <br>電腦猜的<br>`
         state.historybycomputer.forEach((h,i)=>{
-            if(state.seeother===1){
+            if(state.seeother===true){
             html+=`第 ${i+1} 次：${h.guess} → ${h.A}A${h.B}B<br>`;
             }
             else{
