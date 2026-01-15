@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版59測試10</title>
+<title>1A2B 改版59測試11</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -538,6 +538,9 @@ function guessbyrearrange(){
 
     for(let i=0;i<testarray.length;i++){
         if(correctguess(testarray[i]) === -1){
+            if(correctguesscomputer(testarray[i]) !== -1){
+                continue;
+            }
             alert(`系統找到了，將猜測 ${testarray[i]}`);
             input = testarray[i];
             founded=true;
@@ -704,7 +707,7 @@ function giveUp(){
     let a=spendtime();
     state.seeother=true;
     app.innerHTML=`
-        <h2 class="lose-title">😢 放棄了</h2>
+        <h2 class="lose-title">你輸了</h2>
         <p id="historys"></p>
         <p>答案：${state.answer}</p>
         <p>耗時：${a}秒</p>
