@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版59測試4</title>
+<title>1A2B 改版59測試5</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -97,10 +97,17 @@ function initialcandidates2(){
 function deletecandidates(a){
     if(a===true){
          state.candidates = state.candidates.filter(s => checkAplusB(s, state.history[state.history.length-1].guess) === (state.history[state.history.length-1].A + state.history[state.history.length-1].B));
+
         }else{
          state.candidatescomputer = state.candidatescomputer.filter(s => checkAplusB(s, state.historybycomputer[state.historybycomputer.length-1].guess) === (state.historybycomputer[state.historybycomputer.length-1].A + state.historybycomputer[state.historybycomputer.length-1].B));
 }
     
+}
+function seeanddeletecandidates(){
+    let setC = new Set(state.candidatescomputer);
+    let b=state.candidates;
+    state.candidates =b.filter(x => setC.has(x));
+    state.candidatescomputer=state.candidates;
 }
    
 function initialcandidatescomputer(){
@@ -420,6 +427,7 @@ function startGame(){
 
 /* ========= 遊戲畫面 ========= */
 function renderGamePage(){
+    whowin();
     if(Istoobig()===1 && state.guesscount===1){
         initialcandidates2();
     }
@@ -490,6 +498,9 @@ function computerguess(){
     let B=checkB(state.answer,s);
     state.historybycomputer.push({guess:s,A,B});
     deletecandidates(false);
+    if(state.seeother===true){
+        seeanddeletecandidates();
+    }
 }
 function guess(){
     let input=document.getElementById("guessInput").value;
@@ -504,9 +515,11 @@ function guess(){
     document.getElementById("result").innerText=`${input} → ${A}A${B}B`;
     computerguess();
     showHistory();
-    if(A===state.digit) victoryPage();
     if(Istoobig()===0 || (Istoobig()===1&&state.guesscount>=1))
     deletecandidates(true);
+    if(state.seeother===true){
+        seeanddeletecandidates();
+    }
 }
 
 /* ========= 系統提示猜 ========= */
@@ -539,8 +552,11 @@ function guessbyrearrange(){
     document.getElementById("result").innerText=`${input} → ${A}A${B}B`;
     computerguess();
     showHistory();
-    if(A===state.digit) victoryPage();
+    /* ========= if(A===state.digit) victoryPage(); ========= */
     deletecandidates(true);
+    if(state.seeother===true){
+        seeanddeletecandidates();
+    }
 }
 
 function nextRound(){
@@ -667,6 +683,19 @@ function giveUp(){
     state.seeother=true;
     app.innerHTML=`
         <h2 class="lose-title">😢 放棄了</h2>
+        <p id="historys"></p>
+        <p>答案：${state.answer}</p>
+        <p>耗時：${a}秒</p>
+        <button onclick="renderStartPage()">回開始</button>
+    `;
+    showHistory();
+}
+function drawPage(){
+    const app=document.getElementById("app");
+    let a=spendtime();
+    state.seeother=true;
+    app.innerHTML=`
+        <h2 class="lose-title">平手</h2>
         <p id="historys"></p>
         <p>答案：${state.answer}</p>
         <p>耗時：${a}秒</p>
