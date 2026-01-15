@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版58測試1</title>
+<title>1A2B 改版58測試2</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -191,10 +191,11 @@ function spendtime(){ return (Date.now()-state.starttime)/1000; }
 function Istoobig(){
     let a=CharToInt(state.high)-CharToInt(state.low);
     let b=state.digit;
-    if(a*b>=1000000){
+    let c=Math.pow(a, b);
+    if(c>=1000000){
         return 2;
     }
-    else if (a*b>=100000){
+    else if (c>=100000){
         return 1;
     }
     else{
