@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版59測試3</title>
+<title>1A2B 改版59測試4</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -257,6 +257,7 @@ function randomize(str){
 }
 /* ========= 開始畫面 ========= */
 function renderStartPage(){
+    state.difficulty=-1;
     state.historybycomputer = [];
     state.history= [];
     state.answerbyuser=false;
@@ -301,6 +302,8 @@ function startGame3(){
         alert("太多位數了，這樣電腦會爆炸");
         return;
     }
+    state.guesscount=0;
+    state.haveGuessed=false;
     state.playerName=document.getElementById("nameInput").value;
     state.digit=Number(document.getElementById("digitInput").value);
     state.useRepeat=document.getElementById("useRepeat").checked;
@@ -328,18 +331,21 @@ function competeeasy(){
     state.seeother=document.getElementById("seeeachother").checked;
     state.difficulty=1;
     initialcandidatescomputer();
+    initialcandidates();
     renderGamePage();
 }
 function competemid(){
     state.seeother=document.getElementById("seeeachother").checked;
     state.difficulty=2;
     initialcandidatescomputer();
+    initialcandidates();
     renderGamePage();
 }
 function competehard(){
     state.seeother=document.getElementById("seeeachother").checked;
     state.difficulty=3;
     initialcandidatescomputer();
+    initialcandidates();
     renderGamePage();
 }
 /* ========= 使用者出題 ========= */
@@ -388,6 +394,8 @@ function TostartGame(){
 /* ========= 開始遊戲 ========= */
 function startGame(){
     const app=document.getElementById("app");
+    state.guesscount=0;
+    state.haveGuessed=false;
    
 
     state.playerName=document.getElementById("nameInput").value;
@@ -549,13 +557,27 @@ function correctguess(s){
     }
     return -1;
 }
+function correctguesscomputer(s){
+    if(state.seeother===false || state.difficulty===-1){
+        return -1;
+    }
+    for(let i=0;i<state.historybycomputer.length;i++){
+        let h=state.historybycomputer[i];
+        if(checkA(h.guess,s)!==h.A || checkB(h.guess,s)!==h.B) return i;
+    }
+    return -1;
+}
 
 function giveHint(){
     if(state.history.length===0){ alert("第一次沒有提示"); return; }
     let input=document.getElementById("guessInput").value;
     if(!validGuess(input)) return;
     let a=correctguess(input);
-    let msg=(a===-1)?"此猜測與所有歷史紀錄相容":`與第 ${a+1} 次猜測矛盾`;
+    let msg=(a===-1)?"此猜測與所有歷史紀錄相容":`與你猜的第 ${a+1} 次猜測矛盾`;
+    if(a===-1){
+        a=correctguesscomputer(input);
+        msg=(a===-1)?"此猜測與所有歷史紀錄相容":`與電腦猜的第 ${a+1} 次猜測矛盾`;
+    }
     document.getElementById("hint").innerText=msg;
 }
 
