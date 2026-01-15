@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版59測試9</title>
+<title>1A2B 改版59測試10</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -639,6 +639,9 @@ function FinGivehelp(a){/* ========= true是使用者 ========= */
         let array=getPermutations(randomize(cans[(num+i)%cans.length]));
         for(let j=0;j<array.length;j++){
             if(correctguess(array[j])===-1){
+                if(correctguesscomputer(array[j])!==-1){
+                    continue;
+                }
                 founded=true;
                 s2=array[j];
                 break;
@@ -666,11 +669,16 @@ function showLeft(){
     }
     let count2=0;
     let possibilities=state.candidates;
+    let possibilities2=state.candidatescomputer;
     for(let i=0;i<possibilities.length;i++){
         let maybe=getPermutations(possibilities[i]);
+        let maybe2=getPermutations(possibilities2[i])
         for(let j=0;j<maybe.length;j++){
             if(correctguess(maybe[j])===-1){
                 count2++;
+                if(correctguess(maybe2[j])!==-1){
+                    count2--;
+                }
             }
         }
     }
