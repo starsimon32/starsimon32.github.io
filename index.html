@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版59測試8</title>
+<title>1A2B 改版59測試9</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -567,7 +567,9 @@ function guessbyrearrange(){
 
 function nextRound(){
     if(!state.haveGuessed){ alert("請先猜一次"); return; }
-    whowin();
+    if(state.seeother===true){
+        seeanddeletecandidates();
+    }
     state.guesscount++; state.haveGuessed=false;
     renderGamePage();
 }
