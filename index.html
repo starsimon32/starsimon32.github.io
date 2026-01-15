@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版59測試13</title>
+<title>1A2B 改版59測試14</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -586,7 +586,7 @@ function correctguess(s){
     return -1;
 }
 function correctguesscomputer(s){
-    if(state.seeother===false || state.difficulty===-1){
+    if(state.difficulty===-1){
         return -1;
     }
     for(let i=0;i<state.historybycomputer.length;i++){
