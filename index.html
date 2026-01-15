@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版59測試5</title>
+<title>1A2B 改版59測試6</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -104,11 +104,13 @@ function deletecandidates(a){
     
 }
 function seeanddeletecandidates(){
-    let setC = new Set(state.candidatescomputer);
-    let b=state.candidates;
-    state.candidates =b.filter(x => setC.has(x));
-    state.candidatescomputer=state.candidates;
+    const setComputer = new Set(state.candidatescomputer);
+    const intersection = state.candidates.filter(x => setComputer.has(x));
+    let a=intersection.slice();
+    state.candidates = a;          // 新陣列
+    state.candidatescomputer = a;  // 新陣列
 }
+
    
 function initialcandidatescomputer(){
     state.candidatescomputer=generatepossibilities();
@@ -209,7 +211,7 @@ function spendtime(){ return (Date.now()-state.starttime)/1000; }
 
 /* ========= 工具 ========= */
 function Istoobig(){
-    let a=CharToInt(state.high)-CharToInt(state.low);
+    let a=CharToInt(state.high)-CharToInt(state.low)+1;
     let b=state.digit;
     let c=Math.pow(a, b);
     if(c>=1000000){
@@ -480,18 +482,20 @@ function renderGamePage(){
 
 /* ========= 猜 ========= */
 function whowin(){
-    if(state.history[state.history.length-1].A===state.digit){
-        if(state.historybycomputer[state.historybycomputer.length-1].A===state.digit){
+    if(state.history.length === 0 || state.historybycomputer.length === 0) return;
+
+    if(state.history[state.history.length-1].A === state.digit){
+        if(state.historybycomputer[state.historybycomputer.length-1].A === state.digit){
             drawPage();
-        }
-        else{
+        } else {
             victoryPage();
         }
     }
-    else if(state.historybycomputer[state.historybycomputer.length-1].A===state.digit){
+    else if(state.historybycomputer[state.historybycomputer.length-1].A === state.digit){
         giveUp();
     }
 }
+
 function computerguess(){
     let s=FinGivehelp(false);
     let A=checkA(state.answer,s);
@@ -607,7 +611,12 @@ function giveHelp(){
         alert("數字太大，第一次不可用");
         return;
     }
-    let s2=FinGivehelp(true);
+    let s2="";
+    if(state.guesscount!==0){
+        s2=FinGivehelp(true);
+    }else{
+        s2=state.useRepeat?RandomNumberRepeat():RandomNumberNoRepeat(); 
+    }
     document.getElementById("help").innerText=`${s2} 是一組解`;
 }
 function FinGivehelp(a){/* ========= true是使用者 ========= */
