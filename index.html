@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版59測試11</title>
+<title>1A2B 改版59測試12</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -513,11 +513,11 @@ function guess(){
 
     let A=checkA(state.answer,input);
     let B=checkB(state.answer,input);
+    computerguess();
     state.history.push({guess:input,A,B});
     state.haveGuessed=true;
 
     document.getElementById("result").innerText=`${input} → ${A}A${B}B`;
-    computerguess();
     whowin();
     showHistory();
     if(Istoobig()===0 || (Istoobig()===1&&state.guesscount>=1))
@@ -538,7 +538,7 @@ function guessbyrearrange(){
 
     for(let i=0;i<testarray.length;i++){
         if(correctguess(testarray[i]) === -1){
-            if(correctguesscomputer(testarray[i]) !== -1){
+            if(correctguesscomputer(testarray[i]) !== -1&&state.seeother===true){
                 continue;
             }
             alert(`系統找到了，將猜測 ${testarray[i]}`);
@@ -554,11 +554,11 @@ function guessbyrearrange(){
 
     let A=checkA(state.answer,input);
     let B=checkB(state.answer,input);
+    computerguess();
     state.history.push({guess:input,A,B});
     state.haveGuessed=true;
 
     document.getElementById("result").innerText=`${input} → ${A}A${B}B`;
-    computerguess();
     whowin();
     showHistory();
     /* ========= if(A===state.digit) victoryPage(); ========= */
@@ -638,11 +638,30 @@ function FinGivehelp(a){/* ========= true是使用者 ========= */
         cans=state.candidatescomputer;
     }
     let num = Math.floor(Math.random() * cans.length);
-    for(let i=0;i<cans.length;i++){
+    if(a===true){
+        for(let i=0;i<cans.length;i++){
         let array=getPermutations(randomize(cans[(num+i)%cans.length]));
         for(let j=0;j<array.length;j++){
             if(correctguess(array[j])===-1){
-                if(correctguesscomputer(array[j])!==-1){
+                if(correctguesscomputer(array[j])!==-1 && state.seeother===true){
+                    continue;
+                }
+                founded=true;
+                s2=array[j];
+                break;
+            }
+        }
+        if(founded===true){
+            break;
+        }
+        }
+    }
+    else{
+        for(let i=0;i<cans.length;i++){
+        let array=getPermutations(randomize(cans[(num+i)%cans.length]));
+        for(let j=0;j<array.length;j++){
+            if(correctguesscomputer(array[j])===-1){
+                if(correctguess(array[j])!==-1 && state.seeother===true){
                     continue;
                 }
                 founded=true;
@@ -654,6 +673,8 @@ function FinGivehelp(a){/* ========= true是使用者 ========= */
             break;
         }
     }
+    }
+    
     return s2;
 }
 /* ========= 剩餘解 ========= */
