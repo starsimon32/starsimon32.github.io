@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版60測試12</title>
+<title>1A2B 改版60測試13</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -372,7 +372,13 @@ function showdifficulty(){
     else if(state.difficulty===3){
         s="<困難模式>";
     }
-    document.getElementById("givedifficulty").innerText=`${s} `;
+    else if(state.answerbyuser===true){
+        s="<電腦出題>";
+    }
+    else{
+        s="<玩家出題>";
+    }
+    document.getElementById("givedifficulty").innerText=`模式：${s} `;
 }
 /* ========= 使用者出題 ========= */
 function startGame2(){
@@ -465,12 +471,13 @@ function renderGamePage(){
     }
     app.innerHTML=`
         <h2 class="game-title">${titleWords}</h2>
+        <p id="givedifficulty"></p>
         <p>${InnerTexts}</p>
         <p>請猜${state.digit}位數，上限${state.high}，下限${state.low}</p>
         <p id="historys"></p>
         <p>第 ${state.guesscount+1} 次猜測</p>
         <input id="guessInput">
-        <p id="givedifficulty"></p>
+        
 
         <div class="btn-group main-btn">
             <button onclick="guess()">猜</button>
@@ -495,7 +502,7 @@ function renderGamePage(){
         <p id="candidates"></p>
     `;
     showHistory();  
-    showdifficulty);
+    showdifficulty();
 }
 
 /* ========= 猜 ========= */
