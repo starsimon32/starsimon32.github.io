@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版60測試18</title>
+<title>1A2B 改版60測試19</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -425,6 +425,7 @@ function TostartGame(){
 
 /* ========= 開始遊戲 ========= */
 function startGame(){
+    state.difficulty=0;
     const app=document.getElementById("app");
     state.guesscount=0;
     state.haveGuessed=false;
@@ -695,8 +696,8 @@ function FinGivehelp(a){/* ========= true是使用者 ========= */
     let s2="";
     let founded=false;
     let cans=[];
-    let num = Math.floor(Math.random() * cans.length);
     if(state.difficulty===0){
+        let num = Math.floor(Math.random() * cans.length);
         cans=state.candidates;
         for(let i=0;i<cans.length;i++){
         let array=getPermutations(randomize(cans[(num+i)%cans.length]));
@@ -713,6 +714,7 @@ function FinGivehelp(a){/* ========= true是使用者 ========= */
         }
     }
     else if(state.difficulty>=0){
+        let num = Math.floor(Math.random() * cans.length);
         if(a===true){
             cans=state.candidates;
             for(let i=0;i<cans.length;i++){
