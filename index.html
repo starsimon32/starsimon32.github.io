@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版60測試21</title>
+<title>1A2B 改版60測試22</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -347,6 +347,8 @@ function competeeasy(){
     state.difficulty=1;
     initialcandidatescomputer();
     initialcandidates();
+    state.historybycomputer = [];
+    state.history= [];
     renderGamePage();
 }
 function competemid(){
@@ -354,6 +356,8 @@ function competemid(){
     state.seeother=document.getElementById("seeeachother").checked;
     state.difficulty=2;
     initialcandidatescomputer();
+    state.historybycomputer = [];
+    state.history= [];
     initialcandidates();
     renderGamePage();
 }
@@ -362,6 +366,8 @@ function competehard(){
     state.seeother=document.getElementById("seeeachother").checked;
     state.difficulty=3;
     initialcandidatescomputer();
+    state.historybycomputer = [];
+    state.history= [];
     initialcandidates();
     renderGamePage();
 }
@@ -391,6 +397,7 @@ function startGame2(){
     state.useRepeat=document.getElementById("useRepeat").checked;
     state.low=document.getElementById("lowInput").value;
     state.high=document.getElementById("highInput").value;
+    
 
     if(state.playerName.length===0){ alert("請輸入玩家名稱"); return; }
     if(CharToInt(state.low)===-1||CharToInt(state.high)===-1){ alert("最低或最高位不合法"); return; }
@@ -588,8 +595,7 @@ function guess(){
     document.getElementById("result").innerText=`${input} → ${A}A${B}B`;
     whowin();
     showHistory();
-    if(Istoobig()===0 || (Istoobig()===1&&state.guesscount>=1))
-    deletecandidates(true);
+/* =====    if(Istoobig()===0 || (Istoobig()===1&&state.guesscount>=1))    deletecandidates(true);===== */
     if(state.seeother===true&& state.difficulty>=1){
         seeanddeletecandidates();
     }
