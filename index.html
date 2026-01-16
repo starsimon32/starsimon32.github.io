@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版60測試4</title>
+<title>1A2B 改版60測試6</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -505,7 +505,7 @@ function computerguess(){
     if (state.historybycomputer.length === 0) {
         s = randomize(state.candidatescomputer[0]);
     }
-    let AsAndBs=0
+    let AsAndBs=0;
     if (state.historybycomputer.length >=3) {
         let a=state.historybycomputer[state.historybycomputer.length-1].A+state.historybycomputer[state.historybycomputer.length-2].A;
         let b=state.historybycomputer[state.historybycomputer.length-1].B+state.historybycomputer[state.historybycomputer.length-2].B;
