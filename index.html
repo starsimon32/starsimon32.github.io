@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版60測試19</title>
+<title>1A2B 改版60測試20</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -445,9 +445,9 @@ function startGame(){
     
     state.history=[]; state.guesscount=0; state.haveGuessed=false;
     state.starttime=Date.now();
-    if(Istoobig()===0){
-        initialcandidates();
-    }
+
+    initialcandidates();
+  
     renderGamePage();
 }
 
