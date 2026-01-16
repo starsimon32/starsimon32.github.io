@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版60測試17</title>
+<title>1A2B 改版60測試18</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -372,7 +372,7 @@ function showdifficulty(){
     else if(state.difficulty===3){
         s="<困難模式>";
     }
-    else if(state.answerbyuser===true){
+    else if(state.answerbyuser===false){
         s="<電腦出題>";
     }
     else{
@@ -584,7 +584,7 @@ function guess(){
     showHistory();
     if(Istoobig()===0 || (Istoobig()===1&&state.guesscount>=1))
     deletecandidates(true);
-    if(state.seeother===true){
+    if(state.seeother===true&& state.difficulty>=1){
         seeanddeletecandidates();
     }
 }
@@ -627,7 +627,7 @@ function guessbyrearrange(){
     showHistory();
     /* ========= if(A===state.digit) victoryPage(); ========= */
     deletecandidates(true);
-    if(state.seeother===true){
+    if(state.seeother===true&& state.difficulty>=1){
         seeanddeletecandidates();
     }
 }
@@ -695,21 +695,13 @@ function FinGivehelp(a){/* ========= true是使用者 ========= */
     let s2="";
     let founded=false;
     let cans=[];
-    if(a===true){
-        cans=state.candidates;
-    }
-    else{
-        cans=state.candidatescomputer;
-    }
     let num = Math.floor(Math.random() * cans.length);
-    if(a===true){
+    if(state.difficulty===0){
+        cans=state.candidates;
         for(let i=0;i<cans.length;i++){
         let array=getPermutations(randomize(cans[(num+i)%cans.length]));
         for(let j=0;j<array.length;j++){
             if(correctguess(array[j])===-1){
-                if(correctguesscomputer(array[j])!==-1 && state.seeother===true){
-                    continue;
-                }
                 founded=true;
                 s2=array[j];
                 break;
@@ -720,7 +712,28 @@ function FinGivehelp(a){/* ========= true是使用者 ========= */
         }
         }
     }
-    else{
+    else if(state.difficulty>=0){
+        if(a===true){
+            cans=state.candidates;
+            for(let i=0;i<cans.length;i++){
+            let array=getPermutations(randomize(cans[(num+i)%cans.length]));
+            for(let j=0;j<array.length;j++){
+            if(correctguess(array[j])===-1){
+                if(correctguesscomputer(array[j])!==-1 && state.seeother===true){
+                    continue;
+                }
+                founded=true;
+                s2=array[j];
+                break;
+            }
+        }
+            if(founded===true){
+                break;
+            }
+            }
+        }
+      else{
+        cans=state.candidatescomputer;
         for(let i=0;i<cans.length;i++){
         let array=getPermutations(randomize(cans[(num+i)%cans.length]));
         for(let j=0;j<array.length;j++){
@@ -738,6 +751,8 @@ function FinGivehelp(a){/* ========= true是使用者 ========= */
         }
     }
     }
+    }
+    
     
     return s2;
 }
