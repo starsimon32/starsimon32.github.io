@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版60測試3</title>
+<title>1A2B 改版60測試4</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -338,7 +338,7 @@ function startGame3(){
     `;
 }
 function competeeasy(){
-    state.starttime=givenow();
+    state.starttime=Date.now();
     state.seeother=document.getElementById("seeeachother").checked;
     state.difficulty=1;
     initialcandidatescomputer();
@@ -346,7 +346,7 @@ function competeeasy(){
     renderGamePage();
 }
 function competemid(){
-    state.starttime=givenow();
+    state.starttime=Date.now();
     state.seeother=document.getElementById("seeeachother").checked;
     state.difficulty=2;
     initialcandidatescomputer();
@@ -354,7 +354,7 @@ function competemid(){
     renderGamePage();
 }
 function competehard(){
-    state.starttime=givenow();
+    state.starttime=Date.now();
     state.seeother=document.getElementById("seeeachother").checked;
     state.difficulty=3;
     initialcandidatescomputer();
@@ -505,11 +505,20 @@ function computerguess(){
     if (state.historybycomputer.length === 0) {
         s = randomize(state.candidatescomputer[0]);
     }
+    let AsAndBs=0
+    if (state.historybycomputer.length >=3) {
+        let a=state.historybycomputer[state.historybycomputer.length-1].A+state.historybycomputer[state.historybycomputer.length-2].A;
+        let b=state.historybycomputer[state.historybycomputer.length-1].B+state.historybycomputer[state.historybycomputer.length-2].B;
+        let c=state.historybycomputer[state.historybycomputer.length-1].A+state.historybycomputer[state.historybycomputer.length-1].B;
+        if(c===state.digit){
+            AsAndBs=a;
+        }
+    }
     else{
-          if(state.difficulty===2 && !(state.historybycomputer[state.historybycomputer.length-1].A>=1 ||  (state.historybycomputer[state.historybycomputer.length-1].A+state.historybycomputer[state.historybycomputer.length-1].B)===state.digit)){
+          if(state.difficulty===2 && AsAndBs>=2*state.digit-4){
             s=randomize(state.candidatescomputer[(Math.floor(Math.random() * state.candidatescomputer.length))%state.candidatescomputer.length]);
             }
-        else if(state.difficulty===1 && !(state.historybycomputer[state.historybycomputer.length-1].A>=2 ||  (state.historybycomputer[state.historybycomputer.length-1].A+state.historybycomputer[state.historybycomputer.length-1].B)===state.digit)){
+        else if(state.difficulty===1 && AsAndBs>=2*state.digit-3){
             let s1=state.candidatescomputer[Math.floor(Math.random() * state.candidatescomputer.length)];
             let s2=state.candidatescomputer[Math.floor(Math.random() * state.candidatescomputer.length)];
             let s3 = [...s1, ...s2];        // 合併
