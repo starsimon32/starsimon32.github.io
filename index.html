@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版60測試14</title>
+<title>1A2B 改版60測試15</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -507,7 +507,7 @@ function renderGamePage(){
 
 /* ========= 猜 ========= */
 function whowin(){
-    let a=state.historybycomputer.length === 0;
+    let a=state.historybycomputer.length ;
     if(state.history.length === 0 || state.historybycomputer.length === 0) return;
 
     if(state.history[state.history.length-1].A === state.digit){
