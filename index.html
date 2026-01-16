@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版60測試9</title>
+<title>1A2B 改版60測試10</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -446,7 +446,6 @@ function startGame(){
 
 /* ========= 遊戲畫面 ========= */
 function renderGamePage(){
-    whowin();
     if(Istoobig()===1 && state.guesscount===1){
         initialcandidates2();
     }
@@ -560,7 +559,7 @@ function guess(){
 
     let A=checkA(state.answer,input);
     let B=checkB(state.answer,input);
-    if(state.difficult!==0){
+    if(state.difficulty!==0){
         computerguess();
     }
     state.history.push({guess:input,A,B});
@@ -603,7 +602,7 @@ function guessbyrearrange(){
 
     let A=checkA(state.answer,input);
     let B=checkB(state.answer,input);
-    if(state.difficult!==0){
+    if(state.difficulty!==0){
         computerguess();
     }
     state.history.push({guess:input,A,B});
