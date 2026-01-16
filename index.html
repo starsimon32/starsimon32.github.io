@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版59測試15</title>
+<title>1A2B 改版59測試16</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -693,13 +693,9 @@ function showLeft(){
     let possibilities2=state.candidatescomputer;
     for(let i=0;i<possibilities.length;i++){
         let maybe=getPermutations(possibilities[i]);
-        let maybe2=getPermutations(possibilities2[i])
         for(let j=0;j<maybe.length;j++){
             if(correctguess(maybe[j])===-1){
                 count2++;
-                if(correctguesscomputer(maybe[j])!==-1&&state.seeother===true){
-                    count2--;
-                }
             }
         }
     }
