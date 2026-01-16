@@ -515,10 +515,10 @@ function computerguess(){
         }
     }
     else{
-          if(state.difficulty===2 && AsAndBs>=2*state.digit-4){
+          if(state.difficulty===2 && AsAndBs<=2*state.digit-4){
             s=randomize(state.candidatescomputer[(Math.floor(Math.random() * state.candidatescomputer.length))%state.candidatescomputer.length]);
             }
-        else if(state.difficulty===1 && AsAndBs>=2*state.digit-3){
+        else if(state.difficulty===1 && AsAndBs<=2*state.digit-3){
             let s1=state.candidatescomputer[Math.floor(Math.random() * state.candidatescomputer.length)];
             let s2=state.candidatescomputer[Math.floor(Math.random() * state.candidatescomputer.length)];
             let s3 = [...s1, ...s2];        // 合併
