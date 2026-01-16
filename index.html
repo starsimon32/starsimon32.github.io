@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版60測試16</title>
+<title>1A2B 改版60測試17</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -519,13 +519,11 @@ function whowin(){
             drawpage();
         }
         else if(state.history[state.history.length-1].A === state.digit){
-            victorypage();
+            victoryPage();
         }
         else if(state.historybycomputer[state.historybycomputer.length-1].A === state.digit){
             giveUp();
-        }
-            
-        
+        }        
     }
 }
 
