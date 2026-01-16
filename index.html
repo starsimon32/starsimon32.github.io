@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版60測試1</title>
+<title>1A2B 改版60測試2</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -499,24 +499,28 @@ function whowin(){
 
 function computerguess(){
     let s="";
-    if(state.difficulty===2 && !(state.historybycomputer[state.historybycomputer.length-1].A>=1 ||  (state.historybycomputer[state.historybycomputer.length-1].A+state.historybycomputer[state.historybycomputer.length-1].B)===state.digit)){
-        s=randomize(state.candidatescomputer[(Math.floor(Math.random() * state.candidatescomputer.length))%state.candidatescomputer.length]);
-    }
-    if(state.difficulty===1 && !(state.historybycomputer[state.historybycomputer.length-1].A>=2 ||  (state.historybycomputer[state.historybycomputer.length-1].A+state.historybycomputer[state.historybycomputer.length-1].B)===state.digit)){
-        let s1=state.candidatescomputer[(Math.floor(Math.random() * state.candidatescomputer.length))%state.candidatescomputer.length];
-        let s2=state.candidatescomputer[(Math.floor(Math.random() * state.candidatescomputer.length))%state.candidatescomputer.length];
-        let s3 = [...s1, ...s2];        // 合併
-        let s4=s3;
-        if(state.useRepeat===false){
-            s4 = deletesame(s3);
-        }       // 去重
-        let result = s4.slice(0, state.digit); // 取前 N 位
-        s=result;
+    if (state.historybycomputer.length === 0) {
+        s = randomize(state.candidatescomputer[0]);
     }
     else{
-        s=FinGivehelp(false);
+          if(state.difficulty===2 && !(state.historybycomputer[state.historybycomputer.length-1].A>=1 ||  (state.historybycomputer[state.historybycomputer.length-1].A+state.historybycomputer[state.historybycomputer.length-1].B)===state.digit)){
+            s=randomize(state.candidatescomputer[(Math.floor(Math.random() * state.candidatescomputer.length))%state.candidatescomputer.length]);
+            }
+        else if(state.difficulty===1 && !(state.historybycomputer[state.historybycomputer.length-1].A>=2 ||  (state.historybycomputer[state.historybycomputer.length-1].A+state.historybycomputer[state.historybycomputer.length-1].B)===state.digit)){
+            let s1=state.candidatescomputer[Math.floor(Math.random() * state.candidatescomputer.length)];
+            let s2=state.candidatescomputer[Math.floor(Math.random() * state.candidatescomputer.length)];
+            let s3 = [...s1, ...s2];        // 合併
+            let s4=s3;
+            if(state.useRepeat===false){
+                s4 = deletesame(s3);
+            }       // 去重
+            let result = s4.slice(0, state.digit); // 取前 N 位
+            s = result.join("");
+            }
+        else{
+            s=FinGivehelp(false);
+        }
     }
-    
     let A=checkA(state.answer,s);
     let B=checkB(state.answer,s);
     state.historybycomputer.push({guess:s,A,B});
