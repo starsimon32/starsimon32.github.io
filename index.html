@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版60測試20</title>
+<title>1A2B 改版60測試21</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -96,9 +96,13 @@ function initialcandidates2(){
 }
 function deletecandidates(a){
     if(a===true){
+        if(state.history.length === 0) return;
+        if(state.candidates.length === 0) return;
          state.candidates = state.candidates.filter(s => checkAplusB(s, state.history[state.history.length-1].guess) === (state.history[state.history.length-1].A + state.history[state.history.length-1].B));
 
         }else{
+        if(state.historybycomputer.length === 0) return;
+        if(state.candidatescomputer.length === 0) return;
          state.candidatescomputer = state.candidatescomputer.filter(s => checkAplusB(s, state.historybycomputer[state.historybycomputer.length-1].guess) === (state.historybycomputer[state.historybycomputer.length-1].A + state.historybycomputer[state.historybycomputer.length-1].B));
 }
     
@@ -445,8 +449,9 @@ function startGame(){
     
     state.history=[]; state.guesscount=0; state.haveGuessed=false;
     state.starttime=Date.now();
-
-    initialcandidates();
+    if(Istoobig()===0){
+        initialcandidates();
+    }
   
     renderGamePage();
 }
