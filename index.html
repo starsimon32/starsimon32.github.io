@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版60測試13</title>
+<title>1A2B 改版60測試14</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -507,17 +507,22 @@ function renderGamePage(){
 
 /* ========= 猜 ========= */
 function whowin(){
+    let a=state.historybycomputer.length === 0;
     if(state.history.length === 0 || state.historybycomputer.length === 0) return;
 
     if(state.history[state.history.length-1].A === state.digit){
-        if(state.historybycomputer[state.historybycomputer.length-1].A === state.digit){
-            drawPage();
+        if(a!==0){
+            if(state.historybycomputer[state.historybycomputer.length-1].A === state.digit){
+                drawPage();
+        }
         } else {
             victoryPage();
         }
     }
-    else if(state.historybycomputer[state.historybycomputer.length-1].A === state.digit){
+    else if(a!==0){
+        if(state.historybycomputer[state.historybycomputer.length-1].A === state.digit){
         giveUp();
+    }
     }
 }
 
