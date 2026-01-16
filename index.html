@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版59測試14</title>
+<title>1A2B 改版59測試15</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -502,9 +502,6 @@ function computerguess(){
     let B=checkB(state.answer,s);
     state.historybycomputer.push({guess:s,A,B});
     deletecandidates(false);
-    if(state.seeother===true){
-        seeanddeletecandidates();
-    }
 }
 function guess(){
     let input=document.getElementById("guessInput").value;
