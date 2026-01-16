@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版60測試6</title>
+<title>1A2B 改版60測試7</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -505,20 +505,20 @@ function computerguess(){
     if (state.historybycomputer.length === 0) {
         s = randomize(state.candidatescomputer[0]);
     }
-    let AsAndBs=0;
-    if (state.historybycomputer.length >=3) {
-        let a=state.historybycomputer[state.historybycomputer.length-1].A+state.historybycomputer[state.historybycomputer.length-2].A;
-        let b=state.historybycomputer[state.historybycomputer.length-1].B+state.historybycomputer[state.historybycomputer.length-2].B;
-        let c=state.historybycomputer[state.historybycomputer.length-1].A+state.historybycomputer[state.historybycomputer.length-1].B;
-        if(c===state.digit){
-            AsAndBs=a;
-        }
-    }
     else{
-          if(state.difficulty===2 && AsAndBs<=2*state.digit-4){
+         let AsAndBs=0;
+        if (state.historybycomputer.length >=3) {
+            let a=state.historybycomputer[state.historybycomputer.length-1].A+state.historybycomputer[state.historybycomputer.length-2].A;
+            let b=state.historybycomputer[state.historybycomputer.length-1].B+state.historybycomputer[state.historybycomputer.length-2].B;
+            let c=state.historybycomputer[state.historybycomputer.length-1].A+state.historybycomputer[state.historybycomputer.length-1].B;
+            if(c===state.digit){
+                AsAndBs=a;
+            }
+        }
+    if(state.difficulty===2 && AsAndBs<=2*state.digit-4){
             s=randomize(state.candidatescomputer[(Math.floor(Math.random() * state.candidatescomputer.length))%state.candidatescomputer.length]);
             }
-        else if(state.difficulty===1 && AsAndBs<=2*state.digit-3){
+    else if(state.difficulty===1 && AsAndBs<=2*state.digit-3){
             let s1=state.candidatescomputer[Math.floor(Math.random() * state.candidatescomputer.length)];
             let s2=state.candidatescomputer[Math.floor(Math.random() * state.candidatescomputer.length)];
             let s3 = [...s1, ...s2];        // 合併
@@ -530,9 +530,9 @@ function computerguess(){
             s = result.join("");
             s=randomize(s);
             }
-        else{
+    else{
             s=FinGivehelp(false);
-        }
+    }
     }
     let A=checkA(state.answer,s);
     let B=checkB(state.answer,s);
