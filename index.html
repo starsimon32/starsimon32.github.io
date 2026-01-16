@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版60測試22</title>
+<title>1A2B 改版60測試23</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -595,7 +595,7 @@ function guess(){
     document.getElementById("result").innerText=`${input} → ${A}A${B}B`;
     whowin();
     showHistory();
-/* =====    if(Istoobig()===0 || (Istoobig()===1&&state.guesscount>=1))    deletecandidates(true);===== */
+if(Istoobig()===0 || (Istoobig()===1&&state.guesscount>=1))    deletecandidates(true);
     if(state.seeother===true&& state.difficulty>=1){
         seeanddeletecandidates();
     }
@@ -638,7 +638,7 @@ function guessbyrearrange(){
     whowin();
     showHistory();
     /* ========= if(A===state.digit) victoryPage(); ========= */
-    deletecandidates(true);
+    if(Istoobig()===0 || (Istoobig()===1&&state.guesscount>=1))    deletecandidates(true);
     if(state.seeother===true&& state.difficulty>=1){
         seeanddeletecandidates();
     }
@@ -646,7 +646,7 @@ function guessbyrearrange(){
 
 function nextRound(){
     if(!state.haveGuessed){ alert("請先猜一次"); return; }
-    if(state.seeother===true){
+    if(state.seeother===true&&state.difficulty>=1){
         seeanddeletecandidates();
     }
     state.guesscount++; state.haveGuessed=false;
