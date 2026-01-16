@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版60測試7</title>
+<title>1A2B 改版60測試8</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -361,6 +361,19 @@ function competehard(){
     initialcandidates();
     renderGamePage();
 }
+function showdifficulty(){
+    let s="";
+    if(state.difficulty===1){
+        s="<簡單模式>";
+    }
+    else if(state.difficulty===2){
+        s="<中等模式>";
+    }
+    else if(state.difficulty===3){
+        s="<困難模式>";
+    }
+    document.getElementById("givedifficulty").innerText=`${s} `;
+}
 /* ========= 使用者出題 ========= */
 function startGame2(){
     state.playerName=document.getElementById("nameInput").value;
@@ -458,6 +471,7 @@ function renderGamePage(){
         <p id="historys"></p>
         <p>第 ${state.guesscount+1} 次猜測</p>
         <input id="guessInput">
+        <p id="givedifficulty"></p>
 
         <div class="btn-group main-btn">
             <button onclick="guess()">猜</button>
@@ -546,7 +560,9 @@ function guess(){
 
     let A=checkA(state.answer,input);
     let B=checkB(state.answer,input);
-    computerguess();
+    if(state.difficult!==0){
+        computerguess();
+    }
     state.history.push({guess:input,A,B});
     state.haveGuessed=true;
 
@@ -587,7 +603,9 @@ function guessbyrearrange(){
 
     let A=checkA(state.answer,input);
     let B=checkB(state.answer,input);
-    computerguess();
+    if(state.difficult!==0){
+        computerguess();
+    }
     state.history.push({guess:input,A,B});
     state.haveGuessed=true;
 
