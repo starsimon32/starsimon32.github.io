@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版60測試2</title>
+<title>1A2B 改版60測試3</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -338,6 +338,7 @@ function startGame3(){
     `;
 }
 function competeeasy(){
+    state.starttime=givenow();
     state.seeother=document.getElementById("seeeachother").checked;
     state.difficulty=1;
     initialcandidatescomputer();
@@ -345,6 +346,7 @@ function competeeasy(){
     renderGamePage();
 }
 function competemid(){
+    state.starttime=givenow();
     state.seeother=document.getElementById("seeeachother").checked;
     state.difficulty=2;
     initialcandidatescomputer();
@@ -352,6 +354,7 @@ function competemid(){
     renderGamePage();
 }
 function competehard(){
+    state.starttime=givenow();
     state.seeother=document.getElementById("seeeachother").checked;
     state.difficulty=3;
     initialcandidatescomputer();
@@ -516,6 +519,7 @@ function computerguess(){
             }       // 去重
             let result = s4.slice(0, state.digit); // 取前 N 位
             s = result.join("");
+            s=randomize(s);
             }
         else{
             s=FinGivehelp(false);
