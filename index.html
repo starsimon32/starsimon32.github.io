@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版60測試23</title>
+<title>1A2B 改版60測試24</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -529,7 +529,7 @@ function whowin(){
     }
     else{
         if(state.history[state.history.length-1].A === state.digit && state.historybycomputer[state.historybycomputer.length-1].A === state.digit){
-            drawpage();
+            drawPage();
         }
         else if(state.history[state.history.length-1].A === state.digit){
             victoryPage();
@@ -725,9 +725,9 @@ function FinGivehelp(a){/* ========= true是使用者 ========= */
         }
     }
     else if(state.difficulty>=0){
-        let num = Math.floor(Math.random() * cans.length);
         if(a===true){
             cans=state.candidates;
+            let num = Math.floor(Math.random() * cans.length);
             for(let i=0;i<cans.length;i++){
             let array=getPermutations(randomize(cans[(num+i)%cans.length]));
             for(let j=0;j<array.length;j++){
@@ -746,6 +746,7 @@ function FinGivehelp(a){/* ========= true是使用者 ========= */
             }
         }
       else{
+          let num = Math.floor(Math.random() * cans.length);
         cans=state.candidatescomputer;
         for(let i=0;i<cans.length;i++){
         let array=getPermutations(randomize(cans[(num+i)%cans.length]));
