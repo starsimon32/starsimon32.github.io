@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版61測試11</title>
+<title>1A2B 改版61測試12</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -372,7 +372,7 @@ function competeeasy2(){
     mode4Gamepage();
 }
 function mode4Gamepage(){
-    mode4_computerguess_s);
+    mode4_computerguess_s();
     const app=document.getElementById("app");
     let titleWords = "猜對方出的數字";
     let InnerTexts = "請輸入電腦猜的結果以及你的猜測";
@@ -384,8 +384,8 @@ function mode4Gamepage(){
         <p>第 ${state.guesscount+1} 次猜測</p>
         <input id="mode4_guessInput">
         <input id="text_mode4_computerguess">
-        <input id="A_bycomputer" type="number" min="0" max=state.digit>
-        <input id="B_bycomputer" type="number" min="0" max=state.digit>
+        <input id="A_bycomputer" type="number" min="0" max="${state.digit}">
+        <input id="B_bycomputer" type="number" min="0" max="${state.digit}">
 
         <div class="btn-group main-btn">
             <button onclick="mode_4guess()">猜</button>
@@ -531,8 +531,8 @@ function mode_4guessbyrearrange(){
     let input=document.getElementById("mode4_guessInput").value;
     if(!validGuess(input)) return;
     
-    let A_computer=document.getElementById("As_bycomputer").value;
-    let B_computer=document.getElementById("Bs_bycomputer").value;
+    let A_computer=document.getElementById("A_bycomputer").value;
+    let B_computer=document.getElementById("B_bycomputer").value;
     /*=====電腦猜=====*/
 state.historybycomputer.push({
     guess: state.mode4_computerguess,
