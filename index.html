@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版61測試16</title>
+<title>1A2B 改版61測試17</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -389,7 +389,7 @@ function mode4Gamepage(){
         <div class="btn-group main-btn">
             <button onclick="mode_4guess()">猜</button>
             <button onclick="mode_4guessbyrearrange()">我來提示系統猜</button>
-            <button onclick="nextRound()">下一次</button>
+            <button onclick="nextRound_mode4()">下一次</button>
         </div>
         <div class="btn-group helper-btn">
             <button onclick="giveHint()">提示</button>
@@ -410,6 +410,11 @@ function mode4Gamepage(){
     `;
     showHistory();  
     mode4_computerguess_s();
+}
+function nextRound_mode4(){
+    if(!state.haveGuessed){ alert("請先猜一次"); return; }
+    state.guesscount++; state.haveGuessed=false;
+    mode4Gamepage();
 }
 function mode4_computerguess_s(){
     let s="";
