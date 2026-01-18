@@ -1180,21 +1180,22 @@ function giveUp(){
     const app=document.getElementById("app");
     let a=spendtime();
     let b=state.answer;
+    let c="qwer";
     state.seeother=true;
     app.innerHTML=`
         <h2 class="lose-title">你輸了</h2>
         <p id="historys"></p>
-        <p>答案：${b}</p>
+        <p>答案：${b},${c}</p>
         <p>耗時：${a}秒</p>
         <button onclick="renderStartPage()">回開始</button>
     `;
     showHistory();
 }
 function drawPage(){
-    let b=state.answer;
     const app=document.getElementById("app");
     let a=spendtime();
     state.seeother=true;
+    let b=state.answer;
     app.innerHTML=`
         <h2 class="lose-title">平手</h2>
         <p id="historys"></p>
