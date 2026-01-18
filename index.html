@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版61測試38</title>
+<title>1A2B 改版61測試39</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -561,7 +561,7 @@ function mode_4guess(){
     deletecandidates(false);
     let A=0;
     let B=0;
-    if(state.difficulty===-3{
+    if(state.difficulty===-3){
             /*=====生成苦逼選手=====*/
     state.history.push({guess:input,A,B});
     let giveAandB=mode4_whichAandB();
@@ -593,6 +593,7 @@ function mode_4guess(){
          A=checkA(input,state.answer);
         B=checkB(input,state.answer);
         state.history.push({guess:input,A,B});
+        deletecandidates(true);
         
     }
     state.haveGuessed=true;
@@ -641,15 +642,18 @@ state.historybycomputer.push({
     if(founded===false){
         alert(`系統找不到，將猜測 ${input}`);
     }
-     /*=====生成答案=====*/
-    let A=0;
-    let B=0;
+        if(state.difficulty===-3){
+            /*=====生成苦逼選手=====*/
     state.history.push({guess:input,A,B});
     let giveAandB=mode4_whichAandB();
     A=Math.floor(giveAandB / 1000);
     B=giveAandB%1000;
-    /*===生成臨時答案===*/
-    founded=false;
+    state.history[state.history.length-1].guess=input;
+    state.history[state.history.length-1].A=A;
+    state.history[state.history.length-1].B=B;
+    deletecandidates(true);
+    /*=====生成苦逼選手鄰時答案=====*/
+ let  founded=false;
       let cans=state.candidates;
         let num = Math.floor(Math.random() * cans.length);
         for(let i=0;i<cans.length;i++){
@@ -665,7 +669,14 @@ state.historybycomputer.push({
             break;
         }
         }
-    /*===生成臨時答案===*/
+    }
+    else{
+         A=checkA(input,state.answer);
+        B=checkB(input,state.answer);
+        state.history.push({guess:input,A,B});
+        deletecandidates(true);
+        
+    }
     state.haveGuessed=true;
     document.getElementById("result").innerText=`${input} → ${A}A${B}B`;
     whowin();
