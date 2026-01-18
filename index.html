@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版61測試27</title>
+<title>1A2B 改版61測試28</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -593,7 +593,7 @@ function mode_4guess(){
     }
     
     }
-    state.answer=s2.join",";
+    state.answer=s2.join("");
     state.haveGuessed=true;
 
     document.getElementById("result").innerText=`${input} → ${A}A${B}B`;
@@ -671,7 +671,7 @@ state.historybycomputer.push({
     }
     
     }
-    state.answer=s2.join",";
+    state.answer=s2.join("");
     /*===生成臨時答案===*/
     state.haveGuessed=true;
     document.getElementById("result").innerText=`${input} → ${A}A${B}B`;
