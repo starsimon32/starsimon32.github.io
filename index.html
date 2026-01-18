@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版61測試39</title>
+<title>1A2B 改版61測試40</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -347,6 +347,7 @@ function startGame4(){
 }
 function competehard2(){
     state.starttime=Date.now();
+    state.seeother=true;
     state.difficulty=-3;
     initialcandidatescomputer();
     state.historybycomputer = [];
@@ -356,6 +357,7 @@ function competehard2(){
 }
 function competemid2(){
     state.starttime=Date.now();
+    state.seeother=true;
     state.difficulty=-2;
     initialcandidatescomputer();
     state.historybycomputer = [];
@@ -365,6 +367,7 @@ function competemid2(){
 }
 function competeeasy2(){
     state.starttime=Date.now();
+    state.seeother=true;
     state.difficulty=-1;
     initialcandidatescomputer();
     state.historybycomputer = [];
@@ -476,7 +479,7 @@ function mode4_computerguess_s(){
     
     }
     state.mode4_computerguess=s;
-    document.getElementById("text_mode4_computerguess").innerText=`電腦猜${s}，告訴她結果`;
+    document.getElementById("text_mode4_computerguess").innerText=`電腦猜${s}，告訴她結果(都輸入單純數字，左邊A右邊B)`;
 }
 function validinputAandB(){
     let s="";
@@ -1220,14 +1223,14 @@ function drawPage(){
 /* ========= 歷史 ========= */
 function showHistory(){
     let html="<b>歷史紀錄</b><br>";
-    if(state.difficulty!==-1){
+    if(state.difficulty!==0){
         html+=` ${state.playerName} 猜的<br>`
     }
     if(state.history.length===0) html+="暫無紀錄";
     state.history.forEach((h,i)=>{
         html+=`第 ${i+1} 次：${h.guess} → ${h.A}A${h.B}B<br>`;
     });
-    if(state.difficulty!==-1){
+    if(state.difficulty!==0){
         html+=` <br>電腦猜的<br>`
         state.historybycomputer.forEach((h,i)=>{
             if(state.seeother===true){
