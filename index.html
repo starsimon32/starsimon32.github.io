@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版61測試6</title>
+<title>1A2B 改版61測試7</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -439,6 +439,7 @@ function mode4_computerguess_s(){
         }
     }
     state.mode4_computerguess=s;
+    }
 }
 function mode4_howmuchleft(a,b){
     let count2=0;
@@ -484,14 +485,18 @@ function mode_4guess(){
     
     let A_computer=document.getElementById("As_bycomputer").value;
     let B_computer=document.getElementById("Bs_bycomputer").value;
-    state.historybycomputer.push({guess:state.mode4_computerguess,A_computer,B_computer});
+    state.historybycomputer.push({
+    guess: state.mode4_computerguess,
+    A: Number(A_computer),
+    B: Number(B_computer)
+});
     deletecandidates(false);
     /*=====生成苦逼選手=====*/
     let A=0;
     let B=0;
     state.history.push({guess:input,A,B});
     let giveAandB=mode4_whichAandB();
-    A=giveAandB/1000;
+    A=Math.floor(giveAandB / 1000);
     B=giveAandB%1000;
     state.history[state.history.length-1].guess=input;
     state.history[state.history.length-1].A=A;
@@ -532,7 +537,12 @@ function mode_4guessbyrearrange(){
     let A_computer=document.getElementById("As_bycomputer").value;
     let B_computer=document.getElementById("Bs_bycomputer").value;
     /*=====電腦猜=====*/
-    state.historybycomputer.push({guess:state.mode4_computerguess,A_computer,B_computer});
+state.historybycomputer.push({
+    guess: state.mode4_computerguess,
+    A: Number(A_computer),
+    B: Number(B_computer)
+});
+
     deletecandidates(false);
     /*=====電腦猜=====*/
     /*=====生成苦逼選手=====*/
@@ -555,10 +565,12 @@ function mode_4guessbyrearrange(){
         alert(`系統找不到，將猜測 ${input}`);
     }
      /*=====生成答案=====*/
-    let giveAandB=mode4_whichAandB();
-    let A=giveAandB/1000;
-    let B=giveAandB%1000;
+    let A=0;
+    let B=0;
     state.history.push({guess:input,A,B});
+    let giveAandB=mode4_whichAandB();
+    A=Math.floor(giveAandB / 1000);
+    B=giveAandB%1000;
     /*===生成臨時答案===*/
     let s2="";
     founded=false;
