@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版61測試23</title>
+<title>1A2B 改版61測試24</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -473,6 +473,32 @@ function mode4_computerguess_s(){
     state.mode4_computerguess=s;
     document.getElementById("text_mode4_computerguess").innerText=`電腦猜${s}，告訴她結果`;
 }
+function validinputAandB(){
+    let s="";
+    let cans=state.candidatescomputer;
+    let founded=false;
+    let num = Math.floor(Math.random() * cans.length);
+    if (state.historybycomputer.length === 0) {
+        s = randomize(state.candidatescomputer[num]);
+    }
+    else{ 
+        for(let i=0;i<cans.length;i++){
+        let array=getPermutations(randomize(cans[(num+i)%cans.length]));
+        for(let j=0;j<array.length;j++){
+            if(correctguesscomputer(array[j])===-1){
+                founded=true;
+                s=array[j];
+                break;
+            }
+        }
+        if(founded===true){
+            break;
+        }
+    }
+    
+    }
+    return founded;
+}
 function mode4_howmuchleft(a,b){
     let count2=0;
     let possibilities=state.candidates;
@@ -515,11 +541,18 @@ function mode_4guess(){
     
     let A_computer=document.getElementById("A_bycomputer").value;
     let B_computer=document.getElementById("B_bycomputer").value;
+    
     state.historybycomputer.push({
     guess: state.mode4_computerguess,
     A: Number(A_computer),
     B: Number(B_computer)
 });
+    if(validinputAandB()===false){
+        state.historybycomputer.pop();
+        alert("請輸入正確樣貌");
+        return;
+    }
+    
     deletecandidates(false);
     /*=====生成苦逼選手=====*/
     let A=0;
@@ -573,6 +606,11 @@ state.historybycomputer.push({
     A: Number(A_computer),
     B: Number(B_computer)
 });
+    if(validinputAandB()===false){
+        state.historybycomputer.pop();
+        alert("請輸入正確樣貌");
+        return;
+    }
 
     deletecandidates(false);
     /*=====電腦猜=====*/
