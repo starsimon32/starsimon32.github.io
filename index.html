@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版61測試9</title>
+<title>1A2B 改版61測試10</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -483,8 +483,8 @@ function mode_4guess(){
     let B_computer=document.getElementById("Bs_bycomputer").value;
     state.historybycomputer.push({
     guess: state.mode4_computerguess,
-    A: Number(As_computer),
-    B: Number(Bs_computer)
+    A: Number(A_computer),
+    B: Number(B_computer)
 });
     deletecandidates(false);
     /*=====生成苦逼選手=====*/
@@ -535,8 +535,8 @@ function mode_4guessbyrearrange(){
     /*=====電腦猜=====*/
 state.historybycomputer.push({
     guess: state.mode4_computerguess,
-    A: Number(As_computer),
-    B: Number(Bs_computer)
+    A: Number(A_computer),
+    B: Number(B_computer)
 });
 
     deletecandidates(false);
