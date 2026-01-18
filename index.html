@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版61測試17</title>
+<title>1A2B 改版61測試19</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -393,7 +393,7 @@ function mode4Gamepage(){
         </div>
         <div class="btn-group helper-btn">
             <button onclick="giveHint()">提示</button>
-            <button onclick="giveHelp()">幫助</button>
+            <button onclick="giveHelp_mode4()">幫助</button>
             <button onclick="showLeft()">顯示剩餘解數量</button>
             <button onclick="showcandidates()">顯示候選人</button>
         </div>
@@ -410,6 +410,36 @@ function mode4Gamepage(){
     `;
     showHistory();  
     mode4_computerguess_s();
+}
+function giveHelp_mode4(){
+    let s2="";
+    if(state.guesscount!==0){
+    let cans=state.candidates;
+    let founded=false;
+    let num = Math.floor(Math.random() * cans.length);
+    if (state.history.length === 0) {
+        s2 = randomize(state.candidates[num]);
+    }
+    else{ 
+        for(let i=0;i<cans.length;i++){
+        let array=getPermutations(randomize(cans[(num+i)%cans.length]));
+        for(let j=0;j<array.length;j++){
+            if(correctguesscomputer(array[j])===-1){
+                founded=true;
+                s2=array[j];
+                break;
+            }
+        }
+        if(founded===true){
+            break;
+        }
+    }
+    
+    }
+    }else{
+        s2=state.useRepeat?RandomNumberRepeat():RandomNumberNoRepeat(); 
+    }
+    document.getElementById("help").innerText=`${s2} 是一組解`;
 }
 function nextRound_mode4(){
     if(!state.haveGuessed){ alert("請先猜一次"); return; }
@@ -460,10 +490,7 @@ function mode4_howmuchleft(a,b){
     return count2;
 }
 function mode4_whichAandB(){
-    let a=CharToInt(state.high)-CharToInt(state.low)+1;
-    let b=state.digit;
-    let c=Math.pow(a, b);
-    let tempA=0;
+    let tempA=1;
     let tempB=0;
     let tempLeft=0;
     for(let i=0;i<=state.digit;i++){
@@ -503,6 +530,7 @@ function mode_4guess(){
     state.history[state.history.length-1].guess=input;
     state.history[state.history.length-1].A=A;
     state.history[state.history.length-1].B=B;
+    /*=====生成苦逼選手=====*/
     let s2="";
     let founded=false;
     let cans=[];
