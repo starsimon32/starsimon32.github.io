@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版61測試13</title>
+<title>1A2B 改版61測試14</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -372,7 +372,6 @@ function competeeasy2(){
     mode4Gamepage();
 }
 function mode4Gamepage(){
-    mode4_computerguess_s();
     const app=document.getElementById("app");
     let titleWords = "猜對方出的數字";
     let InnerTexts = "請輸入電腦猜的結果以及你的猜測";
@@ -410,6 +409,7 @@ function mode4Gamepage(){
         <p id="candidates"></p>
     `;
     showHistory();  
+    mode4_computerguess_s();
 }
 function mode4_computerguess_s(){
     let s="";
