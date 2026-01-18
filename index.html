@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版61測試8</title>
+<title>1A2B 改版61測試9</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -413,22 +413,17 @@ function mode4Gamepage(){
 }
 function mode4_computerguess_s(){
     let s="";
-    let cans=[];
+    let cans=state.candidatescomputer;
     let founded=false;
+    let num = Math.floor(Math.random() * cans.length);
     if (state.historybycomputer.length === 0) {
-        s = randomize(state.candidatescomputer[0]);
+        s = randomize(state.candidatescomputer[num]);
     }
-    else{
-        cans=state.candidatescomputer;
-          let num = Math.floor(Math.random() * cans.length);
-        
+    else{ 
         for(let i=0;i<cans.length;i++){
         let array=getPermutations(randomize(cans[(num+i)%cans.length]));
         for(let j=0;j<array.length;j++){
             if(correctguesscomputer(array[j])===-1){
-                if(correctguess(array[j])!==-1 && state.seeother===true){
-                    continue;
-                }
                 founded=true;
                 s=array[j];
                 break;
