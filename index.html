@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版61測試21</title>
+<title>1A2B 改版61測試22</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -1136,11 +1136,12 @@ function victoryPage(){
 function giveUp(){
     const app=document.getElementById("app");
     let a=spendtime();
+    let b=state.answer;
     state.seeother=true;
     app.innerHTML=`
         <h2 class="lose-title">你輸了</h2>
         <p id="historys"></p>
-        <p>答案：${state.answer}</p>
+        <p>答案：${b}</p>
         <p>耗時：${a}秒</p>
         <button onclick="renderStartPage()">回開始</button>
     `;
