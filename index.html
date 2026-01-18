@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版61測試10</title>
+<title>1A2B 改版61測試11</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -384,12 +384,8 @@ function mode4Gamepage(){
         <p>第 ${state.guesscount+1} 次猜測</p>
         <input id="mode4_guessInput">
         <input id="text_mode4_computerguess">
-<input id="As_bycomputer" type="number" min="0" max="4">
-<input id="Bs_bycomputer" type="number" min="0" max="4">
-
-
-        <input id="A_bycomputer">
-        <input id="B_bycomputer">
+        <input id="A_bycomputer" type="number" min="0" max=state.digit>
+        <input id="B_bycomputer" type="number" min="0" max=state.digit>
 
         <div class="btn-group main-btn">
             <button onclick="mode_4guess()">猜</button>
