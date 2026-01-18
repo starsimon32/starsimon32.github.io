@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版61測試25</title>
+<title>1A2B 改版61測試26</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -475,7 +475,7 @@ function mode4_computerguess_s(){
     
     }
     state.mode4_computerguess=s;
-    document.getElementById("text_mode4_computerguess").innerText=`電腦猜${s}，告訴她結果`;
+    document.getElementById("text_mode4_computerguess").innerText=`電腦猜${s}，告訴她結果，測試者知道答案${state.answer}`;
 }
 function validinputAandB(){
     let s="";
@@ -569,7 +569,7 @@ function mode_4guess(){
     state.history[state.history.length-1].A=A;
     state.history[state.history.length-1].B=B;
     deletecandidates(true);
-    /*=====生成苦逼選手=====*/
+    /*=====生成苦逼選手鄰時答案=====*/
     let s2="";
     let founded=false;
     let cans=[];
