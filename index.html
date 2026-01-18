@@ -372,6 +372,7 @@ function competeeasy2(){
     mode4Gamepage();
 }
 function mode4Gamepage(){
+    mode4_computerguess_s);
     const app=document.getElementById("app");
     let titleWords = "猜對方出的數字";
     let InnerTexts = "請輸入電腦猜的結果以及你的猜測";
@@ -382,9 +383,13 @@ function mode4Gamepage(){
         <p id="historys"></p>
         <p>第 ${state.guesscount+1} 次猜測</p>
         <input id="mode4_guessInput">
-        <p>電腦猜 ${state.mode4_computerguess} 告訴她結果(幾A幾B)</p>
-        <input id="As_bycomputer">
-        <input id="Bs_bycomputer">
+        <input id="text_mode4_computerguess">
+<input id="As_bycomputer" type="number" min="0" max="4">
+<input id="Bs_bycomputer" type="number" min="0" max="4">
+
+
+        <input id="A_bycomputer">
+        <input id="B_bycomputer">
 
         <div class="btn-group main-btn">
             <button onclick="mode_4guess()">猜</button>
@@ -409,7 +414,6 @@ function mode4Gamepage(){
         <p id="candidates"></p>
     `;
     showHistory();  
-    mode4_computerguess_s()
 }
 function mode4_computerguess_s(){
     let s="";
@@ -436,6 +440,7 @@ function mode4_computerguess_s(){
     
     }
     state.mode4_computerguess=s;
+    document.getElementById("text_mode4_computerguess").innerText=`電腦猜${s}，告訴她結果`;
 }
 function mode4_howmuchleft(a,b){
     let count2=0;
@@ -479,8 +484,8 @@ function mode_4guess(){
     if(state.haveGuessed){ alert("本回合已猜"); return; }
     if(!validGuess(input)) return;
     
-    let A_computer=document.getElementById("As_bycomputer").value;
-    let B_computer=document.getElementById("Bs_bycomputer").value;
+    let A_computer=document.getElementById("A_bycomputer").value;
+    let B_computer=document.getElementById("B_bycomputer").value;
     state.historybycomputer.push({
     guess: state.mode4_computerguess,
     A: Number(A_computer),
