@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版61測試4</title>
+<title>1A2B 改版61測試5</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -382,6 +382,7 @@ function mode4Gamepage(){
         <p id="historys"></p>
         <p>第 ${state.guesscount+1} 次猜測</p>
         <input id="mode4_guessInput">
+        <p>電腦猜 ${state.mode4_computerguess} 告訴她結果(幾A幾B)</p>
         <input id="As_bycomputer">
         <input id="Bs_bycomputer">
 
@@ -408,6 +409,7 @@ function mode4Gamepage(){
         <p id="candidates"></p>
     `;
     showHistory();  
+    mode4_computerguess_s()
 }
 function mode4_computerguess_s(){
     let s="";
