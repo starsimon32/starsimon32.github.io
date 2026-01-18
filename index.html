@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版61測試15</title>
+<title>1A2B 改版61測試16</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -441,9 +441,9 @@ function mode4_computerguess_s(){
 function mode4_howmuchleft(a,b){
     let count2=0;
     let possibilities=state.candidates;
-    let last = state.historybycomputer.length - 1;
-    state.historybycomputer[last].A = a;
-    state.historybycomputer[last].B = b;
+    let last = state.history.length - 1;
+    state.history[last].A = a;
+    state.history[last].B = b;
     for(let i=0;i<possibilities.length;i++){
         let maybe=getPermutations(possibilities[i]);
         for(let j=0;j<maybe.length;j++){
@@ -473,7 +473,7 @@ function mode4_whichAandB(){
         }
     }
     let result=1000*tempA+tempB;
-    return result;
+    return Number(result);
 }
 function mode_4guess(){
     let input=document.getElementById("mode4_guessInput").value;
