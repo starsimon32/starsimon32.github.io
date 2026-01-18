@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版61測試20</title>
+<title>1A2B 改版61測試21</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -531,6 +531,7 @@ function mode_4guess(){
     state.history[state.history.length-1].guess=input;
     state.history[state.history.length-1].A=A;
     state.history[state.history.length-1].B=B;
+    deletecandidates(true);
     /*=====生成苦逼選手=====*/
     let s2="";
     let founded=false;
@@ -558,7 +559,6 @@ function mode_4guess(){
     document.getElementById("result").innerText=`${input} → ${A}A${B}B`;
     whowin();
     showHistory();
-    deletecandidates(true);
 }
 function mode_4guessbyrearrange(){
     if(state.haveGuessed){ alert("本回合已猜"); return; }
