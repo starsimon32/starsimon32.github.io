@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版61測試31</title>
+<title>1A2B 改版61測試32恢復</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -392,6 +392,7 @@ function mode4Gamepage(){
             <button onclick="nextRound_mode4()">下一次</button>
         </div>
         <div class="btn-group helper-btn">
+            <button onclick="giveHint_mode4()">提示</button>
             <button onclick="giveHelp_mode4()">幫助</button>
             <button onclick="showLeft()">顯示剩餘解數量</button>
             <button onclick="showcandidates()">顯示候選人</button>
@@ -409,6 +410,14 @@ function mode4Gamepage(){
     `;
     showHistory();  
     mode4_computerguess_s();
+}
+function giveHint_mode4(){
+    if(state.history.length===0){ alert("第一次沒有提示"); return; }
+    let input=document.getElementById("guessInput").value;
+    if(!validGuess(input)) return;
+    let a=correctguess(input);
+    let msg=(a===-1)?"此猜測與所有歷史紀錄相容":`與你猜的第 ${a+1} 次猜測矛盾`;
+    document.getElementById("hint").innerText=msg;
 }
 function giveHelp_mode4(){
     let s2="";
@@ -584,7 +593,7 @@ function mode_4guess(){
     }
     
     }
-    state.answer=s2;
+    state.answer=s2.join("");
     state.haveGuessed=true;
 
     document.getElementById("result").innerText=`${input} → ${A}A${B}B`;
@@ -662,7 +671,7 @@ state.historybycomputer.push({
     }
     
     }
-    state.answer=s2;
+    state.answer=s2.join("");
     /*===生成臨時答案===*/
     state.haveGuessed=true;
     document.getElementById("result").innerText=`${input} → ${A}A${B}B`;
@@ -1160,51 +1169,48 @@ function showLeft(){
 
 /* ========= 結果 ========= */
 function victoryPage(){
+    let b=state.answer;
     const app=document.getElementById("app");
     let a=spendtime();
     state.seeother=true;
     app.innerHTML=`
         <h2 class="win-title">🎉 恭喜猜中！</h2>
         <p id="historys"></p>
-        <p id="ans"></p>
+        <p>答案：${b}</p>
         <p>耗時：${a}秒</p>
         <button onclick="renderStartPage()">回開始</button>
     `;
     showHistory();
-    showanswer();
 }
 function giveUp(){
     const app=document.getElementById("app");
     let a=spendtime();
+    let b=state.answer;
     state.seeother=true;
     app.innerHTML=`
         <h2 class="lose-title">你輸了</h2>
         <p id="historys"></p>
-        <p id="ans"></p>
+        <p>答案：${b}</p>
         <p>耗時：${a}秒</p>
         <button onclick="renderStartPage()">回開始</button>
     `;
     showHistory();
-    showanswer();
 }
 function drawPage(){
+    let b=state.answer;
     const app=document.getElementById("app");
     let a=spendtime();
     state.seeother=true;
     app.innerHTML=`
         <h2 class="lose-title">平手</h2>
         <p id="historys"></p>
-        <p id="ans"></p>
+        <p>答案：${b}</p>
         <p>耗時：${a}秒</p>
         <button onclick="renderStartPage()">回開始</button>
     `;
     showHistory();
-    showanswer();
 }
-function showanswer(){
-    document.getElementById("ans").innerHTML=`答案${state.answer}`;
-    
-}
+
 /* ========= 歷史 ========= */
 function showHistory(){
     let html="<b>歷史紀錄</b><br>";
