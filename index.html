@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版61測試19</title>
+<title>1A2B 改版61測試20</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -498,9 +498,10 @@ function mode4_whichAandB(){
             if(mode4_howmuchleft(i,j)===0){
                 continue;
             }
-            if(mode4_howmuchleft(i,j)>c){
+            if(mode4_howmuchleft(i,j)>tempLeft){
                 tempA=i;
                 tempB=j;
+                tempLeft=mode4_howmuchleft(i,j);
             }
         }
     }
