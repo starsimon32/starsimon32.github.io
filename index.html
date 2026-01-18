@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版61測試35</title>
+<title>1A2B 改版61測試36</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -301,7 +301,8 @@ function describe(){
         <span style="font-size: 20px; color: #ffcc00; font-weight: bold;">遊戲規則：</span><br>答案由玩家設定，包含重複或不重複、位數及幾進位(本遊戲支援36進位 a=10 、b=11.. z=35)<br>
         <span style="font-size: 20px; color: #ffcc00; font-weight: bold;">提示按鈕：</span><br>輸入自己的答案後，告訴使用者是否與歷史紀錄矛盾<br>
         <span style="font-size: 20px; color: #ffcc00; font-weight: bold;">我來提示系統猜按鈕：</span><br>(此步驟會消耗一次猜的機會，請謹慎使用)輸入一個符合長度和上下界的數字，系統幫你排成和前面幾次猜測都不矛盾的組合，注意到假設無論怎麼湊都會矛盾，系統會自動猜一開始輸入的數<br>
-        <span style="font-size: 20px; color: #ffcc00; font-weight: bold;">和電腦比賽(共同答案)</span><br>電腦隨機生成一個答案，然後互相比賽(三種難度相等)<br>
+        <span style="font-size: 20px; color: #ffcc00; font-weight: bold;">和電腦比賽(共同答案)</span><br>電腦隨機生成一個答案，然後互相比賽<br>
+        <span style="font-size: 20px; color: #ffcc00; font-weight: bold;">和電腦比賽(各自答案)</span><br>各自出一個，然後互相比賽(三種難度相等)<br>
         <span style="font-size: 25px; color: #ff1100; font-weight: bold;">以下這些按鈕在可能性太大時將無法執行</span><br>
         <span style="font-size: 20px; color: #ffcc00; font-weight: bold;">幫助按鈕：</span><br>提供一組與歷史紀錄不矛盾的答案<br>
         <span style="font-size: 20px; color: #ffcc00; font-weight: bold;">顯示剩餘解按鈕：</span><br>計算剩餘可能組合<br>        
@@ -413,7 +414,7 @@ function mode4Gamepage(){
 }
 function giveHint_mode4(){
     if(state.history.length===0){ alert("第一次沒有提示"); return; }
-    let input=document.getElementById("guessInput").value;
+    let input=document.getElementById("mode_4guess").value;
     if(!validGuess(input)) return;
     let a=correctguess(input);
     let msg=(a===-1)?"此猜測與所有歷史紀錄相容":`與你猜的第 ${a+1} 次猜測矛盾`;
@@ -891,7 +892,6 @@ function whowin(){
         }        
     }
 }
-
 function computerguess(){
     let s="";
     if (state.historybycomputer.length === 0) {
@@ -899,18 +899,20 @@ function computerguess(){
     }
     else{
          let AsAndBs=0;
+        let AsAndBs2=0;
         if (state.historybycomputer.length >=3) {
             let a=state.historybycomputer[state.historybycomputer.length-1].A+state.historybycomputer[state.historybycomputer.length-2].A;
             let b=state.historybycomputer[state.historybycomputer.length-1].B+state.historybycomputer[state.historybycomputer.length-2].B;
             let c=state.historybycomputer[state.historybycomputer.length-1].A+state.historybycomputer[state.historybycomputer.length-1].B;
             if(c===state.digit){
                 AsAndBs=a;
+                AsAndBs2=b;
             }
         }
-    if(state.difficulty===2 && AsAndBs<=2*state.digit-4){
+    if(state.difficulty===2 && (AsAndBs<=(2*state.digit-4) ||AsAndBs2===(2*state.digit-1))){
             s=randomize(state.candidatescomputer[(Math.floor(Math.random() * state.candidatescomputer.length))%state.candidatescomputer.length]);
             }
-    else if(state.difficulty===1 && AsAndBs<=2*state.digit-3){
+    else if(state.difficulty===1 && AsAndBs<=2*state.digit-3||AsAndBs2===2*state.digit){
             let s1=state.candidatescomputer[Math.floor(Math.random() * state.candidatescomputer.length)];
             let s2=state.candidatescomputer[Math.floor(Math.random() * state.candidatescomputer.length)];
             let s3 = [...s1, ...s2];        // 合併
