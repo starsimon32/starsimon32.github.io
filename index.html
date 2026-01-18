@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版61測試36</title>
+<title>1A2B 改版61測試37</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -414,7 +414,7 @@ function mode4Gamepage(){
 }
 function giveHint_mode4(){
     if(state.history.length===0){ alert("第一次沒有提示"); return; }
-    let input=document.getElementById("mode_4guess").value;
+    let input=document.getElementById("mode4_guessInput").value;
     if(!validGuess(input)) return;
     let a=correctguess(input);
     let msg=(a===-1)?"此猜測與所有歷史紀錄相容":`與你猜的第 ${a+1} 次猜測矛盾`;
