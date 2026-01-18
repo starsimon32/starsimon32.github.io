@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版61測試22</title>
+<title>1A2B 改版61測試23</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -1121,13 +1121,14 @@ function showLeft(){
 
 /* ========= 結果 ========= */
 function victoryPage(){
+    let b=state.answer;
     const app=document.getElementById("app");
     let a=spendtime();
     state.seeother=true;
     app.innerHTML=`
         <h2 class="win-title">🎉 恭喜猜中！</h2>
         <p id="historys"></p>
-        <p>答案：${state.answer}</p>
+        <p>答案：${b}</p>
         <p>耗時：${a}秒</p>
         <button onclick="renderStartPage()">回開始</button>
     `;
@@ -1148,13 +1149,14 @@ function giveUp(){
     showHistory();
 }
 function drawPage(){
+    let b=state.answer;
     const app=document.getElementById("app");
     let a=spendtime();
     state.seeother=true;
     app.innerHTML=`
         <h2 class="lose-title">平手</h2>
         <p id="historys"></p>
-        <p>答案：${state.answer}</p>
+        <p>答案：${b}</p>
         <p>耗時：${a}秒</p>
         <button onclick="renderStartPage()">回開始</button>
     `;
