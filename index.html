@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版61測試33(26)</title>
+<title>1A2B 改版61測試34</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -570,18 +570,15 @@ function mode_4guess(){
     state.history[state.history.length-1].B=B;
     deletecandidates(true);
     /*=====生成苦逼選手鄰時答案=====*/
-    let s2="";
-    let founded=false;
-    let cans=[];
-    if(state.difficulty===0){
-        cans=state.candidates;
+ let  founded=false;
+      let cans=state.candidates;
         let num = Math.floor(Math.random() * cans.length);
         for(let i=0;i<cans.length;i++){
         let array=getPermutations(randomize(cans[(num+i)%cans.length]));
         for(let j=0;j<array.length;j++){
             if(correctguess(array[j])===-1){
                 founded=true;
-                s2=array[j];
+                state.answer=array[j];
                 break;
             }
         }
@@ -589,8 +586,6 @@ function mode_4guess(){
             break;
         }
         }
-    }
-    state.answer=s2;
     state.haveGuessed=true;
 
     document.getElementById("result").innerText=`${input} → ${A}A${B}B`;
@@ -645,18 +640,15 @@ state.historybycomputer.push({
     A=Math.floor(giveAandB / 1000);
     B=giveAandB%1000;
     /*===生成臨時答案===*/
-    let s2="";
     founded=false;
-    let cans=[];
-    if(state.difficulty===0){
-        cans=state.candidates;
+      let cans=state.candidates;
         let num = Math.floor(Math.random() * cans.length);
         for(let i=0;i<cans.length;i++){
         let array=getPermutations(randomize(cans[(num+i)%cans.length]));
         for(let j=0;j<array.length;j++){
             if(correctguess(array[j])===-1){
                 founded=true;
-                s2=array[j];
+                state.answer=array[j];
                 break;
             }
         }
@@ -664,8 +656,6 @@ state.historybycomputer.push({
             break;
         }
         }
-    }
-    state.answer=s2;
     /*===生成臨時答案===*/
     state.haveGuessed=true;
     document.getElementById("result").innerText=`${input} → ${A}A${B}B`;
