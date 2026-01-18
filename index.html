@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版61測試5</title>
+<title>1A2B 改版61測試6</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -413,11 +413,30 @@ function mode4Gamepage(){
 }
 function mode4_computerguess_s(){
     let s="";
+    let cans=[];
+    let founded=false;
     if (state.historybycomputer.length === 0) {
         s = randomize(state.candidatescomputer[0]);
     }
     else{
-        s=FinGivehelp(false);
+        cans=state.candidatescomputer;
+          let num = Math.floor(Math.random() * cans.length);
+        
+        for(let i=0;i<cans.length;i++){
+        let array=getPermutations(randomize(cans[(num+i)%cans.length]));
+        for(let j=0;j<array.length;j++){
+            if(correctguesscomputer(array[j])===-1){
+                if(correctguess(array[j])!==-1 && state.seeother===true){
+                    continue;
+                }
+                founded=true;
+                s=array[j];
+                break;
+            }
+        }
+        if(founded===true){
+            break;
+        }
     }
     state.mode4_computerguess=s;
 }
@@ -443,13 +462,13 @@ function mode4_whichAandB(){
     let c=Math.pow(a, b);
     let tempA=0;
     let tempB=0;
-    let tempLeft=c;
+    let tempLeft=0;
     for(let i=0;i<=state.digit;i++){
         for(let j=0;j<=state.digit-i;j++){
             if(mode4_howmuchleft(i,j)===0){
                 continue;
             }
-            if(mode4_howmuchleft(i,j)<c){
+            if(mode4_howmuchleft(i,j)>c){
                 tempA=i;
                 tempB=j;
             }
