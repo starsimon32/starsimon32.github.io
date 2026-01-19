@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版62測試1</title>
+<title>1A2B 改版62測試2</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -563,6 +563,7 @@ function mode_4guess(){
     }
     
     deletecandidates(false);
+    state.haveGuessed=true;
     let A=0;
     let B=0;
     if(state.difficulty===-3){
@@ -624,7 +625,7 @@ state.historybycomputer.push({
         alert("請輸入正確樣貌");
         return;
     }
-
+state.haveGuessed=true;
     deletecandidates(false);
     /*=====電腦猜=====*/
     /*=====生成苦逼選手=====*/
