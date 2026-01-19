@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版61測試40</title>
+<title>1A2B 改版62測試1</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -488,6 +488,7 @@ function validinputAandB(){
     let num = Math.floor(Math.random() * cans.length);
     if (state.historybycomputer.length === 0) {
         s = randomize(state.candidatescomputer[num]);
+        founded=true
     }
     else{ 
         for(let i=0;i<cans.length;i++){
@@ -632,9 +633,6 @@ state.historybycomputer.push({
     /*=====生成答案=====*/
     for(let i=0;i<testarray.length;i++){
         if(correctguess(testarray[i]) === -1){
-            if(correctguesscomputer(testarray[i]) !== -1&&state.seeother===true){
-                continue;
-            }
             alert(`系統找到了，將猜測 ${testarray[i]}`);
             input = testarray[i];
             founded=true;
@@ -645,6 +643,7 @@ state.historybycomputer.push({
     if(founded===false){
         alert(`系統找不到，將猜測 ${input}`);
     }
+    founded=false;
         if(state.difficulty===-3){
             /*=====生成苦逼選手=====*/
     state.history.push({guess:input,A,B});
@@ -656,7 +655,7 @@ state.historybycomputer.push({
     state.history[state.history.length-1].B=B;
     deletecandidates(true);
     /*=====生成苦逼選手鄰時答案=====*/
- let  founded=false;
+  founded=false;
       let cans=state.candidates;
         let num = Math.floor(Math.random() * cans.length);
         for(let i=0;i<cans.length;i++){
@@ -677,7 +676,6 @@ state.historybycomputer.push({
          A=checkA(input,state.answer);
         B=checkB(input,state.answer);
         state.history.push({guess:input,A,B});
-        deletecandidates(true);
         
     }
     state.haveGuessed=true;
