@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版63測試5</title>
+<title>1A2B 改版63測試6</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -654,7 +654,7 @@ function mode_4guess_2(){
     let B=0;
     if(state.difficulty===-3){
             /*=====生成苦逼選手=====*/
-    state.history.push({guess:input,A,B});
+    state.history.push({guess:input,A: Number(A), B: Number(B)});
     let giveAandB=mode4_whichAandB();
     A=Math.floor(giveAandB / 1000);
     B=giveAandB%1000;
@@ -727,7 +727,7 @@ function mode_4guessbyrearrange_2(){
     founded=false;
         if(state.difficulty===-3){
             /*=====生成苦逼選手=====*/
-    state.history.push({guess:input,A,B});
+       state.history.push({guess:input,A: Number(A), B: Number(B)});
     let giveAandB=mode4_whichAandB();
     A=Math.floor(giveAandB / 1000);
     B=giveAandB%1000;
