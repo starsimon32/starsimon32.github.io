@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版63測試3</title>
+<title>1A2B 改版63測試4</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -362,6 +362,7 @@ function competehard2(){
     let a = document.getElementById("answer_givefirst_id").checked;
     if(a===true){
         let input=document.getElementById("mode4_answer_user").value;
+        state.mode4_answer_user = input;
         if(!validGuess(input)) return;
          mode4Gamepage_2();
     }
@@ -380,6 +381,7 @@ function competemid2(){
     let a = document.getElementById("answer_givefirst_id").checked;
     if(a===true){
         let input=document.getElementById("mode4_answer_user").value;
+        state.mode4_answer_user = input;
         if(!validGuess(input)) return;
          mode4Gamepage_2();
     }
@@ -398,6 +400,7 @@ function competeeasy2(){
     let a = document.getElementById("answer_givefirst_id").checked;
     if(a===true){
         let input=document.getElementById("mode4_answer_user").value;
+        state.mode4_answer_user = input;
         if(!validGuess(input)) return;
          mode4Gamepage_2();
     }
