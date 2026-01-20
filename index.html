@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>1A2B 改版62測試2</title>
+<title>1A2B 改版63測試1</title>
 <style>
 /* 文字顏色 */
 #left { color: #dc2626; }
@@ -482,31 +482,22 @@ function mode4_computerguess_s(){
     document.getElementById("text_mode4_computerguess").innerText=`電腦猜${s}，告訴她結果(都輸入單純數字，左邊A右邊B)`;
 }
 function validinputAandB(){
-    let s="";
     let cans=state.candidatescomputer;
-    let founded=false;
-    let num = Math.floor(Math.random() * cans.length);
     if (state.historybycomputer.length === 0) {
-        s = randomize(state.candidatescomputer[num]);
-        founded=true
+        return true;
     }
     else{ 
         for(let i=0;i<cans.length;i++){
-        let array=getPermutations(randomize(cans[(num+i)%cans.length]));
+        let array=getPermutations(cans[i]);
         for(let j=0;j<array.length;j++){
             if(correctguesscomputer(array[j])===-1){
-                founded=true;
-                s=array[j];
-                break;
+                return true;
             }
-        }
-        if(founded===true){
-            break;
         }
     }
     
     }
-    return founded;
+    return false;
 }
 function mode4_howmuchleft(a,b){
     let count2=0;
